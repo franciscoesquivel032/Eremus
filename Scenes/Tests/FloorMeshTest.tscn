@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://df1kbmv0l0qj3"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qo3vv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_88a0l"]
+
+[node name="FloorMeshTest" type="MeshInstance3D"]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
+mesh = SubResource("PlaneMesh_qo3vv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, 0)
+shape = SubResource("BoxShape3D_88a0l")

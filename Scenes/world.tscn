@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://clc7yy5aqmtuq"]
+[gd_scene load_steps=3 format=3 uid="uid://clc7yy5aqmtuq"]
+
+[ext_resource type="PackedScene" uid="uid://df1kbmv0l0qj3" path="res://Scenes/Tests/FloorMeshTest.tscn" id="1_y14yu"]
+[ext_resource type="PackedScene" uid="uid://c7ke5u8gwitqf" path="res://Scenes/Tests/DefaultEntityTest.tscn" id="2_uk6ks"]
 
 [node name="World" type="Node3D"]
+
+[node name="FloorMeshTest" parent="." instance=ExtResource("1_y14yu")]
+
+[node name="DefaultEntityTest" parent="." instance=ExtResource("2_uk6ks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26277, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.032091, 0.999485, 0, -0.999485, -0.032091, 0, 6.3756, 0)
+current = true
