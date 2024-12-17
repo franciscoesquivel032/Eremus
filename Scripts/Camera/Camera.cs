@@ -75,10 +75,8 @@ public partial class Camera : Node3D
 
 	public override void _Process(double delta)
 	{
-		GD.Print("Process running");
-
 		if(_cameraCanProcess){
-			GD.Print("Camera can process");
+			// GD.Print("Camera can process");
 			CameraBaseMove(delta);
 			CameraZoomUpdate(delta);
 		}
@@ -104,7 +102,7 @@ public partial class Camera : Node3D
 
 		if(_cameraCanMoveBase)
 		{
-			GD.Print("Camera can move base");
+			// GD.Print("Camera can move base");
 			if(Input.IsActionPressed("camera_forward")) { directionVector -= Transform.Basis.Z; }
 			if(Input.IsActionPressed("camera_backwards")) { directionVector += Transform.Basis.Z; }
 			if(Input.IsActionPressed("camera_right")) { directionVector += Transform.Basis.X; }
@@ -112,7 +110,7 @@ public partial class Camera : Node3D
 
 			Position += directionVector.Normalized() * _cameraMoveSpeed * (float)delta ;
 
-			GD.Print(directionVector);
+			// GD.Print(directionVector);
 		}
 	}
 
@@ -124,7 +122,7 @@ public partial class Camera : Node3D
 
 		if(_cameraCanZoom){
 
-			GD.Print("Camera can zoom");	
+			// GD.Print("Camera can zoom");	
 			
 			// New Z value
 			newZoom = _camera.Position.Z + _cameraZoomSpeed * _cameraZoomDirection * (float)delta;
