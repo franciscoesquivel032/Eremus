@@ -54,10 +54,11 @@ public partial class Camera : Node3D
 	public float _cameraZoomSpeed = 40f; // zoom speed
 
 	[Export(PropertyHint.Range, "0,100,1")]
-	public float _cameraZoomMin = 10f; // min zoom 
+	public float _cameraZoomMin = .05f; // min zoom 
 
 	[Export(PropertyHint.Range, "0,100,1")]
-	public float _cameraZoomMax = 25f; // max zoom
+	public float _cameraZoomMax = 5f; // max zoom
+	public float _cameraZoomDampingSpeed = .01f;
 
 	// Flags
 	private bool _cameraCanProcess;
@@ -82,9 +83,9 @@ public partial class Camera : Node3D
 		}
 	}
 
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        base._UnhandledInput(@event);
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		base._UnhandledInput(@event);
 		if(@event.IsAction("camera_zoom_in"))
 			_cameraZoomDirection = -1;
 		else if(@event.IsAction("camera_zoom_out"))
@@ -93,10 +94,10 @@ public partial class Camera : Node3D
 		else if(@event is InputEventPanGesture gesture)
 			_cameraZoomDirection = Mathf.RoundToInt(gesture.Delta.Y);
 		
-    }
+	}
 
-    // Base Camera move handle
-    public void CameraBaseMove(double delta){
+	// Base Camera move handle
+	public void CameraBaseMove(double delta){
 
 		Vector3 directionVector = Vector3.Zero;
 
@@ -133,8 +134,8 @@ public partial class Camera : Node3D
 			// Move Camera.Position.Z
 			_camera.Position = new Vector3(_camera.Position.X, _camera.Position.Y, newZoom);
 
-			// Set Direction to 0 again
-			_cameraZoomDirection = 0;
+			// Smooth camera zoom stop
+			_cameraZoomDirection *= _cameraZoomDampingSpeed;
 
 		}
 	}
