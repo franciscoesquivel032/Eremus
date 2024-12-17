@@ -22,25 +22,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26277, 0)
 
 [node name="Camera_Base" type="Node3D" parent="."]
 script = ExtResource("3_2sc7u")
-_cameraZoomMin = 1.0
+_cameraZoomMin = 0.0
 
 [node name="Camera_Socket" type="Node3D" parent="Camera_Base"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Camera_Base/Camera_Socket"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 current = true
-
-[node name="Cursor" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-script = null
 
 [node name="Area3D" parent="." instance=ExtResource("5_jyive")]

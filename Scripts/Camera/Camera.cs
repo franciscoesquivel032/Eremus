@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-//			 TO DO !!!
+//			 TODO [Camera Panning script]
 
 /*
 	--- CAMERA CONTROLL SCRIPT ---
@@ -44,22 +44,17 @@ public partial class Camera : Node3D
 	private Camera3D _camera;
 
 	// Camera move speed
-	[Export(PropertyHint.Range, "0,100,1")]
-	public float _cameraMoveSpeed = 20f;
-
+	private float _cameraMoveSpeed = 20f;
 
 	// Camera Zoom
 	private float _cameraZoomDirection; // zoom direction
 
-	[Export(PropertyHint.Range, "0,100,1")]
-	public float _cameraZoomSpeed = 40f; // zoom speed
+	private float _cameraZoomSpeed = 30f; // zoom speed
 
-	[Export(PropertyHint.Range, "0,100,1")]
-	public float _cameraZoomMin = .05f; // min zoom 
+	private float _cameraZoomMin = 1f; // min zoom 
 
-	[Export(PropertyHint.Range, "0,100,1")]
-	public float _cameraZoomMax = 5f; // max zoom
-	public float _cameraZoomDampingSpeed = .92f; // zoom smooth stop
+	private float _cameraZoomMax = 5f; // max zoom
+	private float _cameraZoomDampingSpeed = .92f; // zoom smooth stop
 
 	// Flags
 	private bool _cameraCanProcess;
@@ -82,6 +77,7 @@ public partial class Camera : Node3D
 			// GD.Print("Camera can process");
 			CameraBaseMove(delta);
 			CameraZoomUpdate(delta);
+
 		}
 	}
 
