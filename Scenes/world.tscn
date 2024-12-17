@@ -1,15 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://clc7yy5aqmtuq"]
+[gd_scene load_steps=5 format=3 uid="uid://clc7yy5aqmtuq"]
 
 [ext_resource type="PackedScene" uid="uid://df1kbmv0l0qj3" path="res://Scenes/Tests/FloorMeshTest.tscn" id="1_y14yu"]
 [ext_resource type="PackedScene" uid="uid://c7ke5u8gwitqf" path="res://Scenes/Tests/DefaultEntityTest.tscn" id="2_uk6ks"]
+[ext_resource type="Script" path="res://Scripts/Camera/Camera.cs" id="3_2sc7u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4o0d"]
+albedo_color = Color(0.0816169, 0.0904738, 0.0932823, 1)
 
 [node name="World" type="Node3D"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
 [node name="FloorMeshTest" parent="." instance=ExtResource("1_y14yu")]
+material_override = SubResource("StandardMaterial3D_e4o0d")
 
 [node name="DefaultEntityTest" parent="." instance=ExtResource("2_uk6ks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26277, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.032091, 0.999485, 0, -0.999485, -0.032091, 0, 6.3756, 0)
+[node name="Camera_Base" type="Node3D" parent="."]
+script = ExtResource("3_2sc7u")
+
+[node name="Camera_Socket" type="Node3D" parent="Camera_Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Camera_Base/Camera_Socket"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
 current = true
