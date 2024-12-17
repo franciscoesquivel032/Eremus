@@ -43,6 +43,8 @@ public partial class Selector : Area3D
 				_rect.Visible = false;
 				var selected = GetSelectedBodies();
 
+				UnitManager.Singleton.Units = selected;
+
                 foreach(Node3D body in selected)
                 {
                     GD.Print(body);
