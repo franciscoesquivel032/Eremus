@@ -11,6 +11,7 @@ using System.Diagnostics;
 
 	Camera system will have 3 Nodes.
 		~ Base moves Z and X axis
+		~ Camera Socket handles rotation
 		~ Camera3D handles zoom in and out via Camera3D Z axis
 
 
@@ -58,7 +59,7 @@ public partial class Camera : Node3D
 
 	[Export(PropertyHint.Range, "0,100,1")]
 	public float _cameraZoomMax = 5f; // max zoom
-	public float _cameraZoomDampingSpeed = .01f;
+	public float _cameraZoomDampingSpeed = .92f; // zoom smooth stop
 
 	// Flags
 	private bool _cameraCanProcess;
@@ -69,6 +70,7 @@ public partial class Camera : Node3D
 	{
 		_cameraSocket = GetNode<Node3D>("Camera_Socket");
 		_camera = GetNode<Camera3D>("Camera_Socket/Camera3D");
+
 		_cameraCanMoveBase = true;
 		_cameraCanProcess = true;
 		_cameraCanZoom = true;
