@@ -1,10 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-<<<<<<< HEAD
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eremus", "Eremus.csproj", "{78297EBA-DC79-4A02-B5E0-7DC119D18048}"
-=======
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eremus", "Eremus.csproj", "{50406F79-CE59-4D38-BF04-9ED6FF0B9288}"
->>>>>>> 44a714179b6111b58b411dcaa117806a859f4ee3
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,20 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-<<<<<<< HEAD
-		{78297EBA-DC79-4A02-B5E0-7DC119D18048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78297EBA-DC79-4A02-B5E0-7DC119D18048}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78297EBA-DC79-4A02-B5E0-7DC119D18048}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{78297EBA-DC79-4A02-B5E0-7DC119D18048}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{78297EBA-DC79-4A02-B5E0-7DC119D18048}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{78297EBA-DC79-4A02-B5E0-7DC119D18048}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
-=======
 		{50406F79-CE59-4D38-BF04-9ED6FF0B9288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50406F79-CE59-4D38-BF04-9ED6FF0B9288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50406F79-CE59-4D38-BF04-9ED6FF0B9288}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
 		{50406F79-CE59-4D38-BF04-9ED6FF0B9288}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{50406F79-CE59-4D38-BF04-9ED6FF0B9288}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{50406F79-CE59-4D38-BF04-9ED6FF0B9288}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
->>>>>>> 44a714179b6111b58b411dcaa117806a859f4ee3
 	EndGlobalSection
 EndGlobal

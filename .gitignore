@@ -5,3 +5,7 @@
 
 # Nixos specific ignores
 .direnv
+
+
+
+/.vscode
