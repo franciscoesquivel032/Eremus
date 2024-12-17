@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://clc7yy5aqmtuq"]
+[gd_scene load_steps=7 format=3 uid="uid://clc7yy5aqmtuq"]
 
 [ext_resource type="PackedScene" uid="uid://df1kbmv0l0qj3" path="res://Scenes/Tests/FloorMeshTest.tscn" id="1_y14yu"]
 [ext_resource type="PackedScene" uid="uid://c7ke5u8gwitqf" path="res://Scenes/Tests/DefaultEntityTest.tscn" id="2_uk6ks"]
 [ext_resource type="Script" path="res://Scripts/Camera/Camera.cs" id="3_2sc7u"]
+[ext_resource type="PackedScene" uid="uid://b0m3c1mstgai1" path="res://Scenes/UI/Cursor.tscn" id="4_uipjk"]
+[ext_resource type="PackedScene" uid="uid://ctrn3d15kfhdi" path="res://Scenes/UI/selector.tscn" id="5_jyive"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4o0d"]
 albedo_color = Color(0.0816169, 0.0904738, 0.0932823, 1)
@@ -28,3 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
 [node name="Camera3D" type="Camera3D" parent="Camera_Base/Camera_Socket"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
 current = true
+
+[node name="Cursor" parent="." instance=ExtResource("4_uipjk")]
+
+[node name="Area3D" parent="." instance=ExtResource("5_jyive")]
