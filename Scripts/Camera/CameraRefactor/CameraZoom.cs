@@ -23,7 +23,7 @@ public partial class CameraZoom : Node3D
     /// </summary>
     public override void _Ready()
     {
-        _camera = GetNode<Camera3D>("Camera_Socket/Camera3D");
+        _camera = GetNode<Camera3D>("SpringArm3D/Camera3D");
         _cameraZoomSpeed = 30f;
         _cameraZoomMin = 1f;
         _cameraZoomMax = 5f;
@@ -54,7 +54,7 @@ public partial class CameraZoom : Node3D
     /// Softens camera zoom movement end
     /// </summary>
     /// <param name="delta"></param>
-    private void Process(double delta){
+    private void Update(double delta){
 
 		float newZoom;
 

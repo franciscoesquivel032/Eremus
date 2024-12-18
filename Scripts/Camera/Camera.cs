@@ -40,11 +40,10 @@ using System.Diagnostics;
 public partial class Camera : Node3D
 {
 	// Camera referencies
-	private Node3D _cameraSocket;
 	private Camera3D _camera;
 
 	// Camera move speed
-	private float _cameraMoveSpeed = 20f;
+	private float _cameraMoveSpeed = 40f;
 
 	// Camera Zoom
 	private float _cameraZoomDirection; // zoom direction
@@ -53,8 +52,8 @@ public partial class Camera : Node3D
 
 	private float _cameraZoomMin = 1f; // min zoom 
 
-	private float _cameraZoomMax = 5f; // max zoom
-	private float _cameraZoomDampingSpeed = .92f; // zoom smooth stop
+	private float _cameraZoomMax = 50f; // max zoom
+	private float _cameraDampingSpeed = .5f;
 
 	// Flags
 	private bool _cameraCanProcess;
@@ -63,8 +62,8 @@ public partial class Camera : Node3D
 
 	public override void _Ready()
 	{
-		_cameraSocket = GetNode<Node3D>("Camera_Socket");
-		_camera = GetNode<Camera3D>("Camera_Socket/Camera3D");
+ 		//_springArm = GetNode<SpringArm3D>("SpringArm3D");
+		_camera = GetNode<Camera3D>("SpringArm3D/Camera3D");
 
 		_cameraCanMoveBase = true;
 		_cameraCanProcess = true;
@@ -121,7 +120,7 @@ public partial class Camera : Node3D
 
 		if(_cameraCanZoom){
 
-			// GD.Print("Camera can zoom");	
+			//GD.Print("Camera can zoom");	
 			
 			// New Z value
 			newZoom = _camera.Position.Z + _cameraZoomSpeed * _cameraZoomDirection * (float)delta;
@@ -133,7 +132,7 @@ public partial class Camera : Node3D
 			_camera.Position = new Vector3(_camera.Position.X, _camera.Position.Y, newZoom);
 
 			// Smooth camera zoom stop
-			_cameraZoomDirection *= _cameraZoomDampingSpeed;
+			_cameraZoomDirection *= _cameraDampingSpeed;
 
 		}
 	}

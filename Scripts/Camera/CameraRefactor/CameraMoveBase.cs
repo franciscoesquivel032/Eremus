@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 public partial class CameraMoveBase : Node3D
 {
+    
     // Settings
     //TODO [Resource refactor] 
     private float _cameraMoveSpeed;
@@ -31,20 +32,19 @@ public partial class CameraMoveBase : Node3D
     /// Then establishes position according to _directionVector value
     /// </summary>
     /// <param name="delta"></param>
-    public void Process(double delta) {
+    public void ProcessMovement(double delta) {
+        
         // flag check
         if (_cameraCanMoveBase){
-            HandleInput();
-            SetPosition(delta);
+            HandleInput(delta);
         }
     }
 
     /// <summary>
-    /// You won't believe what this function does...
-    /// 
     /// Handles input and sets _directionVector consequently
     /// </summary>
-    private void HandleInput(){
+    private void HandleInput(double delta){
+        _directionVector = Vector3.Zero;
 
         if(Input.IsActionPressed("camera_forward"))
         _directionVector -= Transform.Basis.Z; 
@@ -57,6 +57,8 @@ public partial class CameraMoveBase : Node3D
 
 		if(Input.IsActionPressed("camera_left"))
          _directionVector -= Transform.Basis.X; 
+
+         SetPosition(delta);
     }
 
     /// <summary>
