@@ -2,6 +2,11 @@ using Godot;
 using System;
 using System.Diagnostics;
 
+/// <summary>
+/// 
+/// Camera that handles camera rotation
+/// 
+/// </summary>
 public partial class CameraRotationHandler : Node3D
 {
 

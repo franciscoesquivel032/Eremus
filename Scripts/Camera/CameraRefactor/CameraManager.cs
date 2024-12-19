@@ -1,6 +1,20 @@
 using Godot;
 using System;
 
+/// <summary>
+/// 
+/// ::: Fran :::
+/// 19 / 12 / 2024
+/// _______________
+/// 
+/// Camera Manager Singleton which handles settings and has access to the entire Camera System
+/// Attached currently to parent Camera node
+/// 
+/// May the force be with you ~
+/// _______________
+/// 
+/// </summary>
+
 public partial class CameraManager : Node3D
 {
 	// Singleton

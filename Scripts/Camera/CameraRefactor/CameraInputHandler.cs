@@ -1,5 +1,11 @@
 using Godot;
 
+/// <summary>
+/// 
+/// Class that handles Camera system inputs
+/// 
+/// </summary>
+
 public partial class CameraInputHandler : Node3D 
 {
     // Camera base movement variables

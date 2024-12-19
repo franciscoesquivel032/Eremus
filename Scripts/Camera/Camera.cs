@@ -2,9 +2,9 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-//			 TODO [Camera Panning script]
 
 /*
+			(Deprecated)
 	--- CAMERA CONTROLL SCRIPT ---
 
 	17 / 12 / 2024
@@ -36,7 +36,7 @@ using System.Diagnostics;
 
 */
 
-
+// :::: DEPRECATED ::::
 public partial class Camera : Node3D
 {
 	// Camera referencies

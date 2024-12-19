@@ -1,5 +1,11 @@
 using Godot;
 
+
+/// <summary>
+/// Resource for Camera settings
+/// Settings are visible and modifiable from the editor
+/// </summary>
+
 public partial class CameraSettings : Resource
 {
     // Rotation settings

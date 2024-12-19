@@ -2,11 +2,15 @@ using Godot;
 using System;
 using System.Diagnostics;
 
+/// <summary>
+/// 
+/// Class that handles camera X axis movement
+/// 
+/// </summary>
 public partial class CameraMovementHandler : Node3D
 {
     
     // Settings
-    //TODO [Resource refactor] 
     private float _cameraMoveSpeed;
     // Flags
     private bool _cameraCanMoveBase;

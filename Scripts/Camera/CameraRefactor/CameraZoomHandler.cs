@@ -2,11 +2,18 @@ using Godot;
 using System;
 using System.Diagnostics;
 
+/// <summary>
+/// 
+/// Camera that handles Camera zoom 
+/// Currently movement in Y axis
+/// 
+/// </summary>
+
 public partial class CameraZoomHandler : Node3D
 {
     private Node3D _parent; // Parent node reference
 
-    // TODO, [Resource refactor]
+    // fields obtained from Manager
 	private float _cameraZoomSpeed; // zoom speed
 	private float _cameraZoomMin; // min zoom 
 	private float _cameraZoomMax; // max zoom
