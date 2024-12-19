@@ -16,7 +16,9 @@ public partial class Selector : Area3D
 
 	public override void _Ready()
 	{
-		_camera = GetNode<Camera3D>("../Camera_Base/Camera_Socket/Camera3D");
+		_camera = CameraManager.Instance.Camera;
+		if(_camera == null) { GD.PrintErr("Camera3D null in Script 'Selector.cs' "); }
+
 		_shape = GetNode<CollisionShape3D>("CollisionShape3D");
 		_rect = GetNode<ReferenceRect>("ReferenceRect");
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://df1kbmv0l0qj3" path="res://Scenes/Tests/FloorMeshTest.tscn" id="1_y14yu"]
 [ext_resource type="PackedScene" uid="uid://c7ke5u8gwitqf" path="res://Scenes/Tests/DefaultEntityTest.tscn" id="2_uk6ks"]
-[ext_resource type="Script" path="res://Scripts/Camera/Camera.cs" id="3_2sc7u"]
+[ext_resource type="PackedScene" uid="uid://8w4lyrxv8q46" path="res://Scenes/camera.tscn" id="4_qut8o"]
 [ext_resource type="PackedScene" uid="uid://ctrn3d15kfhdi" path="res://Scenes/UI/selector.tscn" id="5_jyive"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4o0d"]
@@ -20,14 +20,7 @@ material_override = SubResource("StandardMaterial3D_e4o0d")
 [node name="DefaultEntityTest" parent="." instance=ExtResource("2_uk6ks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26277, 0)
 
-[node name="Camera_Base" type="Node3D" parent="."]
-script = ExtResource("3_2sc7u")
-
-[node name="Camera_Socket" type="Node3D" parent="Camera_Base"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Camera_Base/Camera_Socket"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
-current = true
-
 [node name="Area3D" parent="." instance=ExtResource("5_jyive")]
+
+[node name="Camera" parent="." instance=ExtResource("4_qut8o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.205, 0)
