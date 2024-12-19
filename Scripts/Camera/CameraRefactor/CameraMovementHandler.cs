@@ -19,11 +19,20 @@ public partial class CameraMovementHandler : Node3D
     ///  Future refactor incoming { settings = _resourceSettings }
     /// </summary>
     public override void _Ready() {
-        _cameraMoveSpeed = 20f;
+
+        CameraSettings settings = CameraManager.Instance.Settings;
+
+        _cameraMoveSpeed = settings.CameraMoveSpeed;
         _cameraCanMoveBase = true;
         _parent = GetParent<Node3D>();
     }
 
+    /// <summary>
+    /// Called from input script and passing
+    /// Vector3 direction to calculate new parent position each frame;
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="delta"></param>
     public void Process(Vector3 direction, double delta){
         if(_cameraCanMoveBase)
             _parent.Position += direction.Normalized() * _cameraMoveSpeed * (float)delta;

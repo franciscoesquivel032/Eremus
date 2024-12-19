@@ -10,8 +10,7 @@ public partial class CameraZoomHandler : Node3D
 	private float _cameraZoomSpeed; // zoom speed
 	private float _cameraZoomMin; // min zoom 
 	private float _cameraZoomMax; // max zoom
-	private float _cameraZoomDampingSpeed; // zoom smooth stop
-    private float _cameraZoomStep;
+    private float _cameraZoomStep; // distance traveled per input
 
 
     /// <summary>
@@ -20,32 +19,34 @@ public partial class CameraZoomHandler : Node3D
     /// </summary>
     public override void _Ready()
     {
-        _parent = GetNode<Camera3D>("../Camera3D");
-        _cameraZoomSpeed = 5f;
-        _cameraZoomMin = 1f;
-        _cameraZoomMax = 20f;
-        _cameraZoomDampingSpeed = 5f;
-        _cameraZoomStep = .4f;
+        _parent = GetParent<Node3D>();
+
+        // Get settings
+        CameraSettings settings = CameraManager.Instance.Settings;
+
+        _cameraZoomSpeed = settings.CameraZoomSpeed;
+        _cameraZoomMin = settings.CameraZoomMin;
+        _cameraZoomMax = settings.CameraZoomMax;
+        _cameraZoomStep = settings.CameraZoomStep;
     }
 
 
 
     /// <summary>
-    /// Calculates Position.Z value based on _cameraZoomSpeed and _cameraZoomDirection over time
+    /// Calculates Position.Y value based on _cameraZoomSpeed and _cameraZoomDirection
     /// Constraints new Z to _cameraZoomMin and _cameraZoomMax values
-    /// Adjusts camera Position 
-    /// Softens camera zoom movement end
+    /// Adjusts parent Position.Y on input 
     /// </summary>
     /// <param name="delta"></param>
     public void Process(float direction){
 
-		 // Calculamos la nueva posición Y basándonos en el paso de zoom
+		// Calculate new Y based on direction and zoom step setting
         float newY = _parent.Position.Y + _cameraZoomStep * direction;
 
-        // Limitamos el valor de Y al rango permitido
+        // Constraint new Y value
         newY = Mathf.Clamp(newY, _cameraZoomMin, _cameraZoomMax);
 
-        // Actualizamos la posición del nodo
+        // Update position
         _parent.Position = new Vector3(_parent.Position.X, newY, _parent.Position.Z);
 	}
 }

@@ -10,9 +10,6 @@ public partial class CameraRotationHandler : Node3D
 
     // Rotation sensitivity
     private float _rotationSensitivity;
-    // X axis tilt limits
-    public float _minVerticalAngle;
-    public float _maxVerticalAngle;
 
     /// <summary>
     ///  Settings default values initialization 
@@ -22,9 +19,9 @@ public partial class CameraRotationHandler : Node3D
     {
         _parent = GetParent<Node3D>();
 
-        _rotationSensitivity = 0.1f;
-        _minVerticalAngle = -45f;
-        _maxVerticalAngle = 45f;
+        CameraSettings settings = CameraManager.Instance.Settings;
+        _rotationSensitivity = settings.RotationSensitivity;
+
     }
 
 	 public void RotateCamera(float deltaX)
@@ -33,6 +30,8 @@ public partial class CameraRotationHandler : Node3D
         _parent.RotateY(Mathf.DegToRad(-deltaX * _rotationSensitivity));
     }
 
+    // TEMP
+    // Currently unused.
    /* private void RotateVertical(float deltaY)
     {
         // Get current rotation in X axis

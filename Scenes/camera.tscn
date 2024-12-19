@@ -1,23 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://8w4lyrxv8q46"]
+[gd_scene load_steps=6 format=3 uid="uid://8w4lyrxv8q46"]
 
-[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraMovementHandler.cs" id="1_gblfe"]
-[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraRotationHandler.cs" id="2_46ruq"]
-[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraZoomHandler.cs" id="3_7n22t"]
-[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraInputHandler.cs" id="4_teu78"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactor/CameraManager.cs" id="1_0yrkk"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactor/CameraMovementHandler.cs" id="1_b1e2m"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactor/CameraRotationHandler.cs" id="2_sdti8"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactor/CameraZoomHandler.cs" id="3_0kra0"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactor/CameraInputHandler.cs" id="4_qogrp"]
 
 [node name="Camera" type="Node3D"]
+script = ExtResource("1_0yrkk")
 
 [node name="BaseMovementHandler" type="Node3D" parent="."]
-script = ExtResource("1_gblfe")
+script = ExtResource("1_b1e2m")
 
 [node name="RotationHandler" type="Node3D" parent="."]
-script = ExtResource("2_46ruq")
+script = ExtResource("2_sdti8")
 
 [node name="ZoomHandler" type="Node3D" parent="."]
-script = ExtResource("3_7n22t")
+script = ExtResource("3_0kra0")
 
 [node name="InputHandler" type="Node3D" parent="."]
-script = ExtResource("4_teu78")
+script = ExtResource("4_qogrp")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)

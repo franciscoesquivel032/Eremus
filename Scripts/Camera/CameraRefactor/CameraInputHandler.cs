@@ -43,15 +43,15 @@ public partial class CameraInputHandler : Node3D
 
 	    if (@event is InputEventMouseButton mouseEvent)
     {
-        // Detecta scroll hacia arriba (zoom in)
+        // Detects scroll up (zoom in)
         if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
         {
-            _zoomHandler.Process(-1); // Acercar
+            _zoomHandler.Process(-1); // Zoom in
         }
-        // Detecta scroll hacia abajo (zoom out)
+        // Detects scroll down (zoom out)
         else if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
         {
-            _zoomHandler.Process(1); // Alejar
+            _zoomHandler.Process(1); // Zoom out
         }
     }
         // Si se detecta un gesto de pan (puedes ajustar esta acción a tus necesidades)
@@ -67,12 +67,6 @@ public partial class CameraInputHandler : Node3D
     {
         base._Process(delta);
         HandleBaseMovementInput(delta);
-        //HandleZoom(delta);
-    }
-
-    private void HandleZoom(double delta)
-    {
-        //_zoomHandler.Process(delta, _zoomDirection);
     }
 
     /// <summary>
