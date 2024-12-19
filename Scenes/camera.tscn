@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://8w4lyrxv8q46"]
+
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraMovementHandler.cs" id="1_gblfe"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraRotationHandler.cs" id="2_46ruq"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraZoomHandler.cs" id="3_7n22t"]
+[ext_resource type="Script" path="res://Scripts/Camera/CameraRefactorv2/CameraInputHandler.cs" id="4_teu78"]
+
+[node name="Camera" type="Node3D"]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="BaseMovementHandler" type="Node3D" parent="."]
+script = ExtResource("1_gblfe")
+
+[node name="RotationHandler" type="Node3D" parent="."]
+script = ExtResource("2_46ruq")
+
+[node name="ZoomHandler" type="Node3D" parent="."]
+script = ExtResource("3_7n22t")
+
+[node name="InputHandler" type="Node3D" parent="."]
+script = ExtResource("4_teu78")

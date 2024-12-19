@@ -22,7 +22,6 @@ public partial class CameraMoveBase : Node3D
     /// </summary>
     public override void _Ready() {
         _cameraMoveSpeed = 20f;
-        _cameraCanMoveBase = true;
         _directionVector = Vector3.Zero;
     } 
 
@@ -33,11 +32,9 @@ public partial class CameraMoveBase : Node3D
     /// </summary>
     /// <param name="delta"></param>
     public void ProcessMovement(double delta) {
+    
+        SetPosition(delta);
         
-        // flag check
-        if (_cameraCanMoveBase){
-            HandleInput(delta);
-        }
     }
 
     /// <summary>
