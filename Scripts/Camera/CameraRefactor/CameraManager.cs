@@ -14,7 +14,7 @@ using System;
 /// _______________
 /// 
 /// </summary>
-public partial class CameraManager : Node3D
+public partial class CameraManager : Node3D, IManager<CameraManager>
 {
 	// Singleton instance
 	private static CameraManager _instance; // private field
@@ -96,5 +96,10 @@ public partial class CameraManager : Node3D
 		return (Camera3D)GetNodeByName("Camera3D");
 	}
 
-
+    public static void Load()
+    {
+        GD.Print("Loading Camera Manager");
+		
+		GD.Print("Loaded Camera Manager");
+    }
 }
