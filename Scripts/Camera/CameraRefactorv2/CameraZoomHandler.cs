@@ -4,19 +4,14 @@ using System.Diagnostics;
 
 public partial class CameraZoomHandler : Node3D
 {
-    private Camera3D _camera; // Camera node reference
+    private Node3D _parent; // Parent node reference
 
     // TODO, [Resource refactor]
-	private float _cameraZoomDirection; // zoom direction
-    public float CameraZoomDirection { 
-        get{return _cameraZoomDirection;} 
-        set {_cameraZoomDirection = value;} 
-    }
-
 	private float _cameraZoomSpeed; // zoom speed
 	private float _cameraZoomMin; // min zoom 
 	private float _cameraZoomMax; // max zoom
 	private float _cameraZoomDampingSpeed; // zoom smooth stop
+    private float _cameraZoomStep;
 
 
     /// <summary>
@@ -25,11 +20,12 @@ public partial class CameraZoomHandler : Node3D
     /// </summary>
     public override void _Ready()
     {
-        _camera = GetNode<Camera3D>("../SpringArm3D/Camera3D");
-        _cameraZoomSpeed = 10f;
-        _cameraZoomMin = -5f;
-        _cameraZoomMax = 10f;
-        _cameraZoomDampingSpeed = .92f;
+        _parent = GetNode<Camera3D>("../Camera3D");
+        _cameraZoomSpeed = 5f;
+        _cameraZoomMin = 1f;
+        _cameraZoomMax = 20f;
+        _cameraZoomDampingSpeed = 5f;
+        _cameraZoomStep = .4f;
     }
 
 
@@ -41,27 +37,15 @@ public partial class CameraZoomHandler : Node3D
     /// Softens camera zoom movement end
     /// </summary>
     /// <param name="delta"></param>
-    public void Process(double delta){
+    public void Process(float direction){
 
-		float newZoom;
+		 // Calculamos la nueva posición Y basándonos en el paso de zoom
+        float newY = _parent.Position.Y + _cameraZoomStep * direction;
 
-			if(Mathf.Abs(_cameraZoomDirection) > 0.01){
-                // New Z value
-                newZoom = _camera.Position.Z + _cameraZoomSpeed * _cameraZoomDirection * (float)delta;
+        // Limitamos el valor de Y al rango permitido
+        newY = Mathf.Clamp(newY, _cameraZoomMin, _cameraZoomMax);
 
-                // Value restricted
-                newZoom = Mathf.Clamp(newZoom, _cameraZoomMin, _cameraZoomMax);
-                GD.Print(newZoom);
-                // Move Camera.Position.Z
-                _camera.Position = new Vector3(_camera.Position.X, _camera.Position.Y, newZoom);
-
-                // Soften camera zoom stop
-                _cameraZoomDirection *= _cameraZoomDampingSpeed;
-
-            if(Mathf.Abs(_cameraZoomDirection) < 0.01f)
-                _cameraZoomDirection = 0;
-
-            }
-		
+        // Actualizamos la posición del nodo
+        _parent.Position = new Vector3(_parent.Position.X, newY, _parent.Position.Z);
 	}
 }

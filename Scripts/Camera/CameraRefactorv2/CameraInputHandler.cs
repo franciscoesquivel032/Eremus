@@ -11,8 +11,9 @@ public partial class CameraInputHandler : Node3D
     private CameraRotationHandler _rotationHandler;
 
     // Camera zoom variables
-        private bool _cameraCanZoom;
-        private CameraZoomHandler _zoomHandler;
+    private bool _cameraCanZoom;
+    private CameraZoomHandler _zoomHandler;
+    private float _zoomDirection;
 
 
     public override void _Ready()
@@ -30,6 +31,7 @@ public partial class CameraInputHandler : Node3D
         // Zoom
         _cameraCanZoom = true;
         _zoomHandler = GetNode<CameraZoomHandler>("../ZoomHandler");
+        _zoomDirection = 0;
     }
 
     	/// <summary>
@@ -37,28 +39,40 @@ public partial class CameraInputHandler : Node3D
 	/// </summary>
     public override void _UnhandledInput(InputEvent @event)
 	{
-
 		base._UnhandledInput(@event);
-		if(@event.IsAction("camera_zoom_in"))
-			_zoomHandler.CameraZoomDirection = -1;
-		else if(@event.IsAction("camera_zoom_out"))
-			_zoomHandler.CameraZoomDirection = 1;
-			// HACK: Fix for Mac, enhance
-		else if(@event is InputEventPanGesture gesture)
-			_zoomHandler.CameraZoomDirection = Mathf.RoundToInt(gesture.Delta.Y);
-		
+
+	    if (@event is InputEventMouseButton mouseEvent)
+    {
+        // Detecta scroll hacia arriba (zoom in)
+        if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
+        {
+            _zoomHandler.Process(-1); // Acercar
+        }
+        // Detecta scroll hacia abajo (zoom out)
+        else if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
+        {
+            _zoomHandler.Process(1); // Alejar
+        }
+    }
+        // Si se detecta un gesto de pan (puedes ajustar esta acción a tus necesidades)
+       /* else if (@event is InputEventPanGesture gesture)
+        {
+            _zoomDirection = Mathf.RoundToInt(gesture.Delta.Y);
+        }*/
+
+       
 	}
 
     public override void _Process(double delta)
     {
         base._Process(delta);
         HandleBaseMovementInput(delta);
-        HandleZoom(delta);
+        //HandleZoom(delta);
     }
 
     private void HandleZoom(double delta)
     {
-        _zoomHandler.Process(delta);
+        //_zoomHandler.Process(delta, _zoomDirection);
     }
 
     /// <summary>

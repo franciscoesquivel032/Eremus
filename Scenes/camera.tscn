@@ -7,11 +7,6 @@
 
 [node name="Camera" type="Node3D"]
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
-
 [node name="BaseMovementHandler" type="Node3D" parent="."]
 script = ExtResource("1_gblfe")
 
@@ -23,3 +18,6 @@ script = ExtResource("3_7n22t")
 
 [node name="InputHandler" type="Node3D" parent="."]
 script = ExtResource("4_teu78")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)

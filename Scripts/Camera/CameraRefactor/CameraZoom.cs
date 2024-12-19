@@ -5,7 +5,7 @@ using System.Diagnostics;
 public partial class CameraZoom : Node3D
 {
 
-    private Camera3D _camera; // Camera node in child reference
+    private Node3D _parent; // Camera node in child reference
 
     // TODO, [Resource refactor]
 	private float _cameraZoomDirection; // zoom direction
@@ -23,7 +23,7 @@ public partial class CameraZoom : Node3D
     /// </summary>
     public override void _Ready()
     {
-        _camera = GetNode<Camera3D>("SpringArm3D/Camera3D");
+        _parent = GetNode<Camera3D>("SpringArm3D/Camera3D");
         _cameraZoomSpeed = 30f;
         _cameraZoomMin = 1f;
         _cameraZoomMax = 5f;
@@ -60,13 +60,13 @@ public partial class CameraZoom : Node3D
 
 		if(_cameraCanZoom){
 			// New Z value
-			newZoom = _camera.Position.Z + _cameraZoomSpeed * _cameraZoomDirection * (float)delta;
+			newZoom = _parent.Position.Y + _cameraZoomSpeed * _cameraZoomDirection * (float)delta;
 
 			// Value restricted
 			newZoom = Mathf.Clamp(newZoom, _cameraZoomMin, _cameraZoomMax);
 
 			// Move Camera.Position.Z
-			_camera.Position = new Vector3(_camera.Position.X, _camera.Position.Y, newZoom);
+			_parent.Position = new Vector3(_parent.Position.X, newZoom ,_parent.Position.Z);
 
 			// Smooth camera zoom stop
 			_cameraZoomDirection *= _cameraZoomDampingSpeed;

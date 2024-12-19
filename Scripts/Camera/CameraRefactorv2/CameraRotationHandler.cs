@@ -14,10 +14,6 @@ public partial class CameraRotationHandler : Node3D
     public float _minVerticalAngle;
     public float _maxVerticalAngle;
 
-    // Flags
-    // Mouse state
-    private bool _isRotating = false;
-
     /// <summary>
     ///  Settings default values initialization 
     ///  Future refactor incoming { settings = _resourceSettings }
