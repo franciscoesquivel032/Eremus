@@ -82,16 +82,16 @@ public partial class CameraInputHandler : Node3D
         _directionVector = Vector3.Zero;
 
         if(Input.IsActionPressed("camera_forward"))
-        _directionVector -= Transform.Basis.Z; 
+        _directionVector -= GlobalTransform.Basis.Z; 
 
 		if(Input.IsActionPressed("camera_backwards"))
-         _directionVector += Transform.Basis.Z; 
+         _directionVector += GlobalTransform.Basis.Z; 
 
 		if(Input.IsActionPressed("camera_right"))
-         _directionVector += Transform.Basis.X; 
+         _directionVector += GlobalTransform.Basis.X; 
 
 		if(Input.IsActionPressed("camera_left"))
-         _directionVector -= Transform.Basis.X; 
+         _directionVector -= GlobalTransform.Basis.X; 
 
          _movementHandler.Process(_directionVector, delta);
     }
