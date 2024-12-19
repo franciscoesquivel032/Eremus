@@ -94,10 +94,13 @@ public partial class CameraInputHandler : Node3D
     /// <summary>
     /// Handles an incoming InputEvent
     /// If right mouse button is being pressed 
-    /// cursor is hidden and its position locked while performing the action
     /// Then rotate the camera according to the #direction 
     /// 
     /// #direction is determined based on the mouse position relative to the previous position (position at the last frame).
+    /// 
+    /// ::::: (Currently Unused) ::::: 
+    /// -> cursor is hidden and its position locked while performing the action
+    /// 
     /// </summary>
     /// <param name="event"></param>
     public override void _Input(InputEvent @event)
@@ -109,7 +112,7 @@ public partial class CameraInputHandler : Node3D
             {
                 _isRotating = mouseEvent.Pressed;
 
-                if (_isRotating)
+                /*if (_isRotating)
                 {
                     // Capture cursor
 					Input.MouseMode = Input.MouseModeEnum.Captured;
@@ -118,7 +121,7 @@ public partial class CameraInputHandler : Node3D
                 {
                     // Show cursor
                     Input.MouseMode = Input.MouseModeEnum.Visible; 
-                }
+                }*/
             }
         }
 
