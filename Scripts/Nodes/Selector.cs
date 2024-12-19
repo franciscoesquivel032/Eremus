@@ -22,6 +22,19 @@ public partial class Selector : Area3D
 
 		_rect.EditorOnly = false;
 		_rect.Visible = false;
+
+		
+		// When a body enters or exists the selection shape, notified to the UnitManager
+		BodyShapeEntered += (body_rid, body, body_shape_index, local_shape_index) => {
+			UnitManager.Singleton.AddUnit(body);
+		};
+
+		BodyShapeExited += (body_rid, body, body_shape_index, local_shape_index) => {
+			UnitManager.Singleton.RemoveUnit(body);
+		};
+
+		// So that the selection it's empty at first
+		RedrawSelectionShape();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -37,21 +50,17 @@ public partial class Selector : Area3D
 				_rect.Position = mouseEvent.Position;
 				_rect.Size = Vector2.Zero;
 				_rect.Visible = true;
+				GD.Print("Starting selection");
 			}
 			else
 			{
 				_rect.Visible = false;
-				var selected = GetSelectedBodies();
-
-				UnitManager.Singleton.Units = selected;
-
-                foreach(Node3D body in selected)
-                {
-                    GD.Print(body);
-                }
+				GD.Print("Ending selection");
+				RedrawSelectionShape();
 			}
 		}
-		else if (@event is InputEventMouseMotion mouseMotion && mouseMotion.ButtonMask == MouseButtonMask.Left)
+		
+		if (@event is InputEventMouseMotion mouseMotion && mouseMotion.ButtonMask == MouseButtonMask.Left)
 		{
 			_secondPos = mouseMotion.Position;
 			_rect.Position = new (
@@ -69,7 +78,7 @@ public partial class Selector : Area3D
 
 		// Project 4 corners of the rect to the camera near plane
 		var pnear = ProjectSelection(rect, camera, camera.Near + NEAR_FAR_MARGIN);
-
+		
 		// project 4 corners of the rext to the camera far plane
 		var pfar = ProjectSelection(rect, camera, camera.Far - NEAR_FAR_MARGIN);
 
@@ -97,11 +106,8 @@ public partial class Selector : Area3D
 
 		return shape;
 	}
-	
-	
-	
 
-	/// <summary>
+    /// <summary>
     /// Projects 4 rect corners into space, onto a viewing plane at z distance from the given camera 
     /// projection is done using given camera's perspective projection settings 
     /// </summary>
@@ -109,7 +115,7 @@ public partial class Selector : Area3D
     /// <param name="camera"></param>
     /// <param name="z"></param>
     /// <returns></returns>
-	static Vector3[] ProjectSelection(Rect2 rect, Camera3D camera, float z) {
+    static Vector3[] ProjectSelection(Rect2 rect, Camera3D camera, float z) {
 		return new Vector3[] {
 			camera.ProjectPosition(rect.Position, z),
 			camera.ProjectPosition(rect.Position + new Vector2(rect.Size.X, 0.0f), z),
@@ -118,11 +124,8 @@ public partial class Selector : Area3D
 		};
 	}
 
-
-    /// <summary>
-    /// Return all nodes within the selection made within the reference rect
-    /// </summary>
-    Godot.Collections.Array<Node3D> GetSelectedBodies() {
+	void RedrawSelectionShape()
+	{
 		// Get frustum mesh and assign it as a collider and assign it to the area 3d
 		_rect.Size = new (
 			Mathf.Max(1, _rect.Size.X),
@@ -130,8 +133,6 @@ public partial class Selector : Area3D
 		);
 
 		_shape.Shape = CreateFrustumCollisionMesh(_rect.GetRect(), _camera);
-
-		return GetOverlappingBodies();
 	}
 
 }

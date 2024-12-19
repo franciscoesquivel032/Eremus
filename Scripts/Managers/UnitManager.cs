@@ -15,6 +15,8 @@ public partial class UnitManager : Node
 
     public override void _Ready()
     {
+        Singleton = this;
+        Units = new();
         GD.Print("Loaded UnitManager!");
     }
 
@@ -22,8 +24,22 @@ public partial class UnitManager : Node
     {
         foreach(Node3D unit in _units)
         {
-            GD.Print(unit);   
+            // GD.Print(unit);
         }
+        GD.Print(_units.ToString());
+        
+    }
+
+    public void AddUnit(Node3D body)
+    {
+        GD.Print("Adding ", body, " to singleton");
+		Units.Add(body);
+    }
+
+    public void RemoveUnit(Node3D body)
+    {
+        GD.Print("Removing ", body, " from singleton");
+		Units.Remove(body);
     }
 
 }
