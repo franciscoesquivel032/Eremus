@@ -68,12 +68,9 @@ public partial class CameraManager : Manager<CameraManager>
 	/// Returns child Camera3D
 	/// </summary>
 	/// <returns> Camera3D node </returns>
-	private Camera3D GetCamera3D() => (Camera3D) GetChildByPath("/root/World/Camera/Camera3D");
+	private Camera3D GetCamera3D() => GetNode<Camera3D>("/root/World/Camera/Camera3D");
+	private Node3D GetBaseMovementHandler() => GetNode<Node3D>("/root/World/Camera/BaseMovementHandler");
+	private Node3D GetRotationHandler() => GetNode<Node3D>("/root/World/Camera/RotationHandler");
+	private Node3D GetZoomHandler() => GetNode<Node3D>("/root/World/Camera/ZoomHandler");
 
-	/// <summary>
-	/// Returns Child<Node> based on incoming path param
-	/// </summary>
-	/// <param name="route"></param>
-	/// <returns></returns>
-	private Node GetChildByPath(string path) => GetNode<Node>(path);    
 }
