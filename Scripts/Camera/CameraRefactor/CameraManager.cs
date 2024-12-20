@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// 
@@ -14,7 +15,7 @@ using System;
 /// _______________
 /// 
 /// </summary>
-public partial class CameraManager : Manager<CameraManager>
+public partial class CameraManager : Manager<CameraManager>, ILoader, IInitializer
 {
 
 	// Settings reference
@@ -34,16 +35,34 @@ public partial class CameraManager : Manager<CameraManager>
     {
         base._EnterTree();
 
-		GD.Print("Loading Camera Manager");
+		Prints.Loading(this);
 
 		// Load settings from Resources folder
-		_settings = GD.Load<CameraSettings> ("res://Data(Resources)/CameraSettings.tres");
+		LoadResources();
 		
 		// Get camera reference
-		_camera = GetCamera3D();
-		if(_camera == null){GD.Print("camera null");}
+		InitReferences();
 
-		GD.Print("Loaded Camera Manager");
+		Prints.Loaded(this);
+    }
+
+	    public void InitReferences()
+    {
+        _camera = GetCamera3D();
+		_ = _camera ?? throw new CameraSystemNullReferenceException("Camera not initialized...");
+		
+		// OK flag
+		Prints.ResourceLoadSuccessfully(this);
+    }
+
+
+	    public void LoadResources()
+    {
+        _settings = GD.Load<CameraSettings> ("res://Data(Resources)/CameraSettings.tres");
+        _ = _settings ?? throw new ResourceLoadException("Settings Resource unable to load...");
+
+		// OK flag
+		Prints.RefsInitSuccessfully(this);
     }
 
 
@@ -72,5 +91,6 @@ public partial class CameraManager : Manager<CameraManager>
 	private Node3D GetBaseMovementHandler() => GetNode<Node3D>("/root/World/Camera/BaseMovementHandler");
 	private Node3D GetRotationHandler() => GetNode<Node3D>("/root/World/Camera/RotationHandler");
 	private Node3D GetZoomHandler() => GetNode<Node3D>("/root/World/Camera/ZoomHandler");
+
 
 }

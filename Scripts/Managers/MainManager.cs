@@ -14,14 +14,15 @@ public partial class MainManager : Node
         get { return _instance; }
     }
 
+
     public override void _EnterTree()
     {    
-        ManagersRes managerList =  GD.Load<ManagersRes>("res://Data(Resources)/ManagersRes.tres");
-
-        GD.Print("Loaded: " + managerList);
+        Prints.Loading(this);
 
         AddChild(CameraManager.Instance);
         AddChild(UnitManager.Instance);
+
+        Prints.Loaded(this);
     }
 
 }

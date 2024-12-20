@@ -6,7 +6,7 @@ using Godot;
 /// 
 /// </summary>
 
-public partial class CameraInputHandler : Node3D 
+public partial class CameraInputHandler : Node3D, IInitializer
 {
     // Camera base movement variables
     private Vector3 _directionVector;
@@ -26,6 +26,11 @@ public partial class CameraInputHandler : Node3D
     {
         base._Ready();
 
+        InitReferences();
+    }
+
+        public void InitReferences()
+    {
         // Base movement
         _directionVector = Vector3.Zero;
         _movementHandler = GetNode<CameraMovementHandler>("../BaseMovementHandler");
@@ -140,4 +145,7 @@ public partial class CameraInputHandler : Node3D
         }
 
 	}
+
+
+
 }
