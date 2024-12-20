@@ -49,32 +49,31 @@ public partial class CameraManager : Manager<CameraManager>
 
     // ::: Utility methods ::: 
 
+
     /// <summary>
     /// Get child node by name
     /// </summary>
     /// <param name="nodeName"></param>
     /// <returns>  Node -> Might need a cast on call </returns>
-    public Node GetNodeByName(string nodeName){
-		return GetNodeOrNull<Node>(nodeName);
-	}
+    public Node GetNodeByName(string nodeName) => GetNodeOrNull<Node>(nodeName);
 
 	/// <summary>
 	/// Get child node by index
 	/// </summary>
 	/// <param name="index"></param>
 	/// <returns> Node -> Might need a cast on call </returns>
-	public Node GetNodeByIndex(int index){
-		return GetChild<Node>(index);
-	}
-
+	public Node GetNodeByIndex(int index) => GetChild<Node>(index);
 
 	/// <summary>
-	/// Get child Camera3D
+	/// Returns child Camera3D
 	/// </summary>
 	/// <returns> Camera3D node </returns>
-	private Camera3D GetCamera3D()
-	{
-		return GetNode<Camera3D>("/root/World/Camera/Camera3D");
-	}
-    
+	private Camera3D GetCamera3D() => (Camera3D) GetChildByPath("/root/World/Camera/Camera3D");
+
+	/// <summary>
+	/// Returns Child<Node> based on incoming path param
+	/// </summary>
+	/// <param name="route"></param>
+	/// <returns></returns>
+	private Node GetChildByPath(string path) => GetNode<Node>(path);    
 }
