@@ -15,7 +15,10 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        devShells.default = pkgs.mkShell { packages = [ pkgs.dotnet-sdk_8 ]; };
+        devShells.default = pkgs.mkShell { 
+          packages = [ pkgs.dotnet-sdk_8 ];
+          nativeBuildInputs = [ pkgs.dotnet-sdk_8 ];
+        };
       }
     );
 }

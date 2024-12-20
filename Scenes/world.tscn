@@ -24,3 +24,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26277, 0)
 
 [node name="Camera" parent="." instance=ExtResource("4_qut8o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.205, 0)
+script = null

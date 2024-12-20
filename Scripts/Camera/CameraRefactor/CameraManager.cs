@@ -14,21 +14,8 @@ using System;
 /// _______________
 /// 
 /// </summary>
-public partial class CameraManager : Node3D, IManager<CameraManager>
+public partial class CameraManager : Manager<CameraManager>
 {
-	// Singleton instance
-	private static CameraManager _instance; // private field
-	public static CameraManager Instance  // public property
-	{
-		get
-		{
-			// null instance flag
-			if(_instance == null)
-				GD.Print("CameraManager instance not initialized...");
-
-			return _instance;
-		}
-	}
 
 	// Settings reference
 	private CameraSettings _settings;
@@ -46,24 +33,17 @@ public partial class CameraManager : Node3D, IManager<CameraManager>
     public override void _EnterTree()
     {
         base._EnterTree();
-		
-		if(_instance != null)
-		{
-			// multiple instances flag
-			GD.PrintErr("Multiple instances of CameraManager...");
-			return;
-		}
 
-		// Ensure this object has one singular instance
-		_instance = this;
-
+		GD.Print("Loading Camera Manager");
 
 		// Load settings from Resources folder
 		_settings = GD.Load<CameraSettings> ("res://Data(Resources)/CameraSettings.tres");
-
+		
 		// Get camera reference
 		_camera = GetCamera3D();
 		if(_camera == null){GD.Print("camera null");}
+
+		GD.Print("Loaded Camera Manager");
     }
 
 
@@ -92,14 +72,9 @@ public partial class CameraManager : Node3D, IManager<CameraManager>
 	/// Get child Camera3D
 	/// </summary>
 	/// <returns> Camera3D node </returns>
-	private Camera3D GetCamera3D(){
-		return (Camera3D)GetNodeByName("Camera3D");
+	private Camera3D GetCamera3D()
+	{
+		return GetNode<Camera3D>("/root/World/Camera/Camera3D");
 	}
-
-    public static void Load()
-    {
-        GD.Print("Loading Camera Manager");
-		
-		GD.Print("Loaded Camera Manager");
-    }
+    
 }
