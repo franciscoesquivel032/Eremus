@@ -17,7 +17,6 @@ public partial class MainManager : Node
     {        
         AddChild(CameraManager.Instance);
         AddChild(UnitManager.Instance);
-        AddChild(TestManager.Instance);
     }
 
 }
