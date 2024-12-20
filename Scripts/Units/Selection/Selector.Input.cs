@@ -70,7 +70,7 @@ public partial class Selector : Area3D
 
         var collision = GetWorld3D().DirectSpaceState.IntersectRay(_mouseQuery);
 
-        return collision.TryGetValue("position", out Variant pos) ? (Vector3)pos : Vector3.Zero;
+        return collision.TryGetValue("position", out Variant pos) ? (Vector3) pos : Vector3.Zero;
     }
 
 }
