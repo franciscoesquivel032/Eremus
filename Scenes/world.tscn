@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://clc7yy5aqmtuq"]
+[gd_scene load_steps=7 format=3 uid="uid://clc7yy5aqmtuq"]
 
 [ext_resource type="PackedScene" uid="uid://df1kbmv0l0qj3" path="res://Scenes/Tests/FloorMeshTest.tscn" id="1_y14yu"]
 [ext_resource type="PackedScene" uid="uid://c7ke5u8gwitqf" path="res://Scenes/Tests/DefaultEntityTest.tscn" id="2_uk6ks"]
@@ -8,6 +8,9 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4o0d"]
 albedo_color = Color(0.0816169, 0.0904738, 0.0932823, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2gh6"]
+size = Vector3(1.995, 0.035, 1.99)
+
 [node name="World" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -16,6 +19,11 @@ shadow_enabled = true
 
 [node name="FloorMeshTest" parent="." instance=ExtResource("1_y14yu")]
 material_override = SubResource("StandardMaterial3D_e4o0d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="FloorMeshTest"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="FloorMeshTest/StaticBody3D"]
+shape = SubResource("BoxShape3D_h2gh6")
 
 [node name="DefaultEntityTest" parent="." instance=ExtResource("2_uk6ks")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26277, 0)
