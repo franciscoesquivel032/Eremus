@@ -9,15 +9,13 @@ public partial class Selector : Area3D
 
 	private ReferenceRect _rect;
 	private CollisionShape3D _shape;
-	private Camera3D _camera;
 
 	private Vector2 _firstPos;
 	private Vector2 _secondPos;
 
 	public override void _Ready()
 	{
-		_camera = CameraManager.Instance.Camera;
-		if(_camera == null) { GD.PrintErr("Camera3D null in Script 'Selector.cs' "); }
+		
 
 		_shape = GetNode<CollisionShape3D>("CollisionShape3D");
 		_rect = GetNode<ReferenceRect>("ReferenceRect");
@@ -43,34 +41,7 @@ public partial class Selector : Area3D
 	{
 		base._Input(@event);
 
-		if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex == MouseButton.Left)
-		{
-			if (mouseEvent.IsPressed())
-			{   
-				_firstPos = mouseEvent.Position;
-				_secondPos = mouseEvent.Position;
-				_rect.Position = mouseEvent.Position;
-				_rect.Size = Vector2.Zero;
-				_rect.Visible = true;
-				GD.Print("Starting selection");
-			}
-			else
-			{
-				_rect.Visible = false;
-				GD.Print("Ending selection");
-				RedrawSelectionShape();
-			}
-		}
-		
-		if (@event is InputEventMouseMotion mouseMotion && mouseMotion.ButtonMask == MouseButtonMask.Left)
-		{
-			_secondPos = mouseMotion.Position;
-			_rect.Position = new (
-				Mathf.Min(_secondPos.X, _firstPos.X),
-				Mathf.Min(_secondPos.Y, _firstPos.Y)
-			);
-			_rect.Size = (mouseMotion.Position - _firstPos).Abs();
-		}
+		HandleSelection(@event);
 	}
 
 	static ConvexPolygonShape3D CreateFrustumCollisionMesh(Rect2 rect, Camera3D camera)
@@ -134,7 +105,8 @@ public partial class Selector : Area3D
 			Mathf.Max(1, _rect.Size.Y)
 		);
 
-		_shape.Shape = CreateFrustumCollisionMesh(_rect.GetRect(), _camera);
+		
+		_shape.Shape = CreateFrustumCollisionMesh(_rect.GetRect(), CameraManager.Instance.Camera);
 	}
 
 }

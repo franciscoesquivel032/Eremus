@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctrn3d15kfhdi"]
 
-[ext_resource type="Script" path="res://Scripts/Nodes/Selector.cs" id="1_km7ut"]
+[ext_resource type="Script" path="res://Scripts/Units/Selection/Selector.cs" id="1_km7ut"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j7e5y"]
 
