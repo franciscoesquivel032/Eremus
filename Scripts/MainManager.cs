@@ -14,8 +14,10 @@ public partial class MainManager : Node
     }
 
     public override void _EnterTree()
-    {
-        CameraManager.Load();
+    {        
+        AddChild(CameraManager.Instance);
+        AddChild(UnitManager.Instance);
+        AddChild(TestManager.Instance);
     }
 
 }

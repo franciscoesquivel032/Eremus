@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 
 [autoload]
 
-UnitManager="*res://Scripts/Managers/UnitManager.cs"
+MainManager="*res://Scripts/MainManager.cs"
 
 [dotnet]
 

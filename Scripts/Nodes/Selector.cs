@@ -28,11 +28,11 @@ public partial class Selector : Area3D
 		
 		// When a body enters or exists the selection shape, notified to the UnitManager
 		BodyShapeEntered += (body_rid, body, body_shape_index, local_shape_index) => {
-			UnitManager.Singleton.AddUnit(body);
+			UnitManager.Instance.AddUnit(body);
 		};
 
 		BodyShapeExited += (body_rid, body, body_shape_index, local_shape_index) => {
-			UnitManager.Singleton.RemoveUnit(body);
+			UnitManager.Instance.RemoveUnit(body);
 		};
 
 		// So that the selection it's empty at first
@@ -109,15 +109,15 @@ public partial class Selector : Area3D
 		return shape;
 	}
 
-    /// <summary>
-    /// Projects 4 rect corners into space, onto a viewing plane at z distance from the given camera 
-    /// projection is done using given camera's perspective projection settings 
-    /// </summary>
-    /// <param name="rect"></param>
-    /// <param name="camera"></param>
-    /// <param name="z"></param>
-    /// <returns></returns>
-    static Vector3[] ProjectSelection(Rect2 rect, Camera3D camera, float z) {
+	/// <summary>
+	/// Projects 4 rect corners into space, onto a viewing plane at z distance from the given camera 
+	/// projection is done using given camera's perspective projection settings 
+	/// </summary>
+	/// <param name="rect"></param>
+	/// <param name="camera"></param>
+	/// <param name="z"></param>
+	/// <returns></returns>
+	static Vector3[] ProjectSelection(Rect2 rect, Camera3D camera, float z) {
 		return new Vector3[] {
 			camera.ProjectPosition(rect.Position, z),
 			camera.ProjectPosition(rect.Position + new Vector2(rect.Size.X, 0.0f), z),
