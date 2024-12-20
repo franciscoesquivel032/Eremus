@@ -18,9 +18,10 @@ public partial class MainManager : Node
     {    
         ManagersRes managerList =  GD.Load<ManagersRes>("res://Data(Resources)/ManagersRes.tres");
 
-        // Iterates the collection of managers and instantiates a new Node in the hierarchy containing Singleton script  
-          managerList.ManagerList.ToList<CSharpScript>().ForEach(m =>AddChild( (Node) m.New() ));
+        GD.Print("Loaded: " + managerList);
 
+        AddChild(CameraManager.Instance);
+        AddChild(UnitManager.Instance);
     }
 
 }
