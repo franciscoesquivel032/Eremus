@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://xlrafgwmdhui"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://xlrafgwmdhui"]
 
 [ext_resource type="Script" path="res://Scripts/Camera/CameraRefactor/CameraManager.cs" id="1_ahtay"]
 [ext_resource type="Script" path="res://Scripts/Resources/ManagersRes.cs" id="1_mttdr"]
+[ext_resource type="Script" path="res://Scripts/Managers/UnitManager.cs" id="2_ev13i"]
 
 [resource]
 script = ExtResource("1_mttdr")
-ManagerList = Array[Script]([ExtResource("1_ahtay")])
+ManagerList = Array[Script]([ExtResource("1_ahtay"), ExtResource("2_ev13i")])
