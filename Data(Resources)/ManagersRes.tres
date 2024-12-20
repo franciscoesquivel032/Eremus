@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Camera/CameraRefactor/CameraManager.cs" id="1_ahtay"]
 [ext_resource type="Script" path="res://Scripts/Resources/ManagersRes.cs" id="1_mttdr"]
-[ext_resource type="Script" path="res://Scripts/Managers/UnitManager.cs" id="2_ev13i"]
+[ext_resource type="Script" path="res://Scripts/Units/UnitManager.cs" id="2_ev13i"]
 
 [resource]
 script = ExtResource("1_mttdr")
