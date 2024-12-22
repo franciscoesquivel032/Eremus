@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 /// <summary>
 /// 
@@ -14,7 +15,7 @@ using System;
 /// _______________
 /// 
 /// </summary>
-public partial class CameraManager : Manager<CameraManager>
+public partial class CameraManager : Manager<CameraManager>, ILoader, IInitializer
 {
 
 	// Settings reference
@@ -38,34 +39,54 @@ public partial class CameraManager : Manager<CameraManager>
 	/// EnterTree is called when the node is added to the node tree, before it is completly initialized.
 	/// This way I ensure settings are loaded and the Singleton instance is prepared before any other Node can refeer it.
 	/// </summary>
-    public override void _EnterTree()
-    {
-        base._EnterTree();
+	public override void _EnterTree()
+	{
+		base._EnterTree();
 
-		GD.Print("Loading Camera Manager");
+		Prints.Loading(this);
 
 		// Load settings from Resources folder
-		_settings = GD.Load<CameraSettings> ("res://Data(Resources)/CameraSettings.tres");
-		
+		LoadResources();
+
 		// Get camera reference
-		_camera = GetCamera3D();
-		if(_camera == null){GD.Print("camera null");}
+		InitReferences();
+
 
 		_mouseQuery = new();
 
 		GD.Print("Loaded Camera Manager");
-    }
+
+		Prints.Loaded(this);
+	}
+
+	public void InitReferences()
+	{
+		_camera = GetCamera3D();
+		_ = _camera ?? throw new CameraSystemNullReferenceException("Camera not initialized...");
+
+		// OK flag
+		Prints.ResourceLoadSuccessfully(this);
+	}
+
+	public void LoadResources()
+	{
+		_settings = GD.Load<CameraSettings>("res://Data(Resources)/CameraSettings.tres");
+		_ = _settings ?? throw new ResourceLoadException("Settings Resource unable to load...");
+
+		// OK flag
+		Prints.RefsInitSuccessfully(this);
+	}
 
 
-    // ::: Utility methods ::: 
+	// ::: Utility methods ::: 
 
 
-    /// <summary>
-    /// Get child node by name
-    /// </summary>
-    /// <param name="nodeName"></param>
-    /// <returns>  Node -> Might need a cast on call </returns>
-    public Node GetNodeByName(string nodeName) => GetNodeOrNull<Node>(nodeName);
+	/// <summary>
+	/// Get child node by name
+	/// </summary>
+	/// <param name="nodeName"></param>
+	/// <returns>  Node -> Might need a cast on call </returns>
+	public Node GetNodeByName(string nodeName) => GetNodeOrNull<Node>(nodeName);
 
 	/// <summary>
 	/// Get child node by index
@@ -83,19 +104,20 @@ public partial class CameraManager : Manager<CameraManager>
 	private Node3D GetRotationHandler() => GetNode<Node3D>("/root/World/Camera/RotationHandler");
 	private Node3D GetZoomHandler() => GetNode<Node3D>("/root/World/Camera/ZoomHandler");
 
+
 	/// <summary>
 	/// Gives the position of the mouse in world space from the viewport
 	/// </summary>
 	/// <returns></returns>
 	public Vector3 GetMouseWorldPosition()
-    {
+	{
 		var mousePos = GetViewport().GetMousePosition();
-        _mouseQuery.From = Camera.ProjectRayOrigin(mousePos);
-        _mouseQuery.To = _mouseQuery.From + Camera.ProjectRayNormal(mousePos) * MOUSE_QUERY_RAY_LENGTH;
+		_mouseQuery.From = Camera.ProjectRayOrigin(mousePos);
+		_mouseQuery.To = _mouseQuery.From + Camera.ProjectRayNormal(mousePos) * MOUSE_QUERY_RAY_LENGTH;
 
-        var collision = Camera.GetWorld3D().DirectSpaceState.IntersectRay(_mouseQuery);
+		var collision = Camera.GetWorld3D().DirectSpaceState.IntersectRay(_mouseQuery);
 
-        return collision.TryGetValue("position", out Variant pos) ? (Vector3) pos : Vector3.Zero;
-    }
+		return collision.TryGetValue("position", out Variant pos) ? (Vector3)pos : Vector3.Zero;
+	}
 
 }

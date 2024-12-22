@@ -9,7 +9,7 @@ using System.Diagnostics;
 /// 
 /// </summary>
 
-public partial class CameraZoomHandler : Node3D
+public partial class CameraZoomHandler : Node3D, IInitializer
 {
     private Node3D _parent; // Parent node reference
 
@@ -26,6 +26,11 @@ public partial class CameraZoomHandler : Node3D
     /// </summary>
     public override void _Ready()
     {
+        InitReferences();
+    }
+
+     public void InitReferences()
+    {
         _parent = GetParent<Node3D>();
 
         // Get settings
@@ -36,7 +41,6 @@ public partial class CameraZoomHandler : Node3D
         _cameraZoomMax = settings.CameraZoomMax;
         _cameraZoomStep = settings.CameraZoomStep;
     }
-
 
 
     /// <summary>
@@ -56,4 +60,7 @@ public partial class CameraZoomHandler : Node3D
         // Update position
         _parent.Position = new Vector3(_parent.Position.X, newY, _parent.Position.Z);
 	}
+
+   
+
 }
