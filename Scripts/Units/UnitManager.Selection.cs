@@ -1,65 +1,10 @@
-
 using System;
-using System.Linq;
 using Godot;
 
-public partial class Selector : Area3D
+public partial class UnitManager : Manager<UnitManager>
 {
 
-	/// <summary>
-	/// Frustum near/far planes distance from camera near/far planes
-	/// </summary>
-	private const float NEAR_FAR_MARGIN = .1f; 
-
-	/// <summary>
-	///  Length of the ray to be cast from the viewport to calculate mouse world position
-	/// </summary>
-	private const float MOUSE_QUERY_RAY_LENGTH = 100f;
-
-	private PhysicsRayQueryParameters3D _mouseQuery;
-
-	private ReferenceRect _rect;
-	private CollisionShape3D _shape;
-
-	private Vector2 _firstPos;
-	private Vector2 _secondPos;
-	
-
-	private enum SelectionState
-	{
-		None,
-		LastCheck,
-		Selecting
-	}
-
-	private SelectionState _selectionState;
-
-	public override void _Ready()
-	{
-		_shape = GetNode<CollisionShape3D>("CollisionShape3D");
-		_shape.Shape = new ConvexPolygonShape3D();
-
-		_rect = GetNode<ReferenceRect>("ReferenceRect");
-
-		_rect.EditorOnly = false;
-		_rect.Visible = false;
-
-		_selectionState = SelectionState.None;
-
-		_mouseQuery = new();
-
-		// So that the selection it's empty at first
-		RedrawSelectionShape();
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		base._Input(@event);
-
-		HandleSelection(@event);
-	}	
-
-	/// <summary>
+    /// <summary>
 	/// Projects 4 rect corners into space, onto a viewing plane at z distance from the given camera 
 	/// projection is done using given camera's perspective projection settings 
 	/// </summary>
@@ -77,7 +22,8 @@ public partial class Selector : Area3D
 		];
 	}
 
-	/// <summary>
+
+    /// <summary>
 	/// Sets the shape to be a polygon based on the current selection from the viewport
 	/// </summary>
 	/// <param name="shape">The shape to modify</param>
@@ -119,15 +65,15 @@ public partial class Selector : Area3D
 		}
 	}
 
-	/// <summary>
+    /// <summary>
 	/// Ensures that the selection is within limits and regenerates its shape
 	/// </summary>
 	void RedrawSelectionShape()
 	{
 		// Get frustum mesh and assign it as a collider and assign it to the area 3d
-		_rect.Size = new(Mathf.Max(1, _rect.Size.X), Mathf.Max(1, _rect.Size.Y));
+		Rect.Size = new(Mathf.Max(1, Rect.Size.X), Mathf.Max(1, Rect.Size.Y));
 
-		ModifyFrustumCollisionMesh(_shape.Shape, _rect.GetRect(), CameraManager.Instance.Camera);
+		ModifyFrustumCollisionMesh(Shape, Rect.GetRect(), CameraManager.Instance.Camera);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -139,18 +85,18 @@ public partial class Selector : Area3D
 			case SelectionState.Selecting:
 				{
 					RedrawSelectionShape();
-					UnitManager.Instance.Units = GetOverlappingBodies().ToList();
+					
 					break;
 				}
 			case SelectionState.LastCheck:
 				{
 					RedrawSelectionShape();
-					UnitManager.Instance.Units = GetOverlappingBodies().ToList();
+					
 					_selectionState = SelectionState.None;
 					break;
 				}
 		}
 
 	}
-
+	
 }

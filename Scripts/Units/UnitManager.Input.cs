@@ -1,17 +1,28 @@
+using System;
 using Godot;
 
-public partial class Selector : Area3D
+public partial class UnitManager : Manager<UnitManager>
 {
-    
+
+    private Vector2 _firstPos;
+	private Vector2 _secondPos;
+
+    public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
+
+		HandleSelection(@event);
+	}
+
     private void StartSelection(InputEventMouseButton mouseButtonEvent)
     {
         GD.Print("Starting selection");
 
         _firstPos = mouseButtonEvent.Position;
         _secondPos = mouseButtonEvent.Position;
-        _rect.Position = mouseButtonEvent.Position;
-        _rect.Size = Vector2.Zero;
-        _rect.Visible = true;
+        Rect.Position = mouseButtonEvent.Position;
+        Rect.Size = Vector2.Zero;
+        Rect.Visible = true;
         _selectionState = SelectionState.Selecting;
     }
 
@@ -19,18 +30,18 @@ public partial class Selector : Area3D
     {
         GD.Print("Ending selection");
 
-        _rect.Visible = false;
+        Rect.Visible = false;
         _selectionState = SelectionState.LastCheck;
     }
 
     private void MoveSelection(InputEventMouseMotion mouseMotionEvent)
     {
         _secondPos = mouseMotionEvent.Position;
-        _rect.Position = new(
+        Rect.Position = new(
             Mathf.Min(_secondPos.X, _firstPos.X),
             Mathf.Min(_secondPos.Y, _firstPos.Y)
         );
-        _rect.Size = (mouseMotionEvent.Position - _firstPos).Abs();
+        Rect.Size = (mouseMotionEvent.Position - _firstPos).Abs();
     }
 
     private void HandleSelection(InputEvent @event)
@@ -51,8 +62,7 @@ public partial class Selector : Area3D
                     {
                         if (mouseEvent.IsPressed())
                         {
-                            var target = MouseToWorldPosition(CameraManager.Instance.Camera, mouseEvent);
-                            UnitManager.Instance.SetUnitsTarget(target);
+                            SetUnitsTarget(CameraManager.Instance.GetMouseWorldPosition());
                         }
                         break;
                     }
@@ -63,14 +73,6 @@ public partial class Selector : Area3D
             MoveSelection(mouseMotion);
     }
 
-    private Vector3 MouseToWorldPosition(Camera3D camera, InputEventMouse mouseEvent)
-    {
-        _mouseQuery.From = camera.ProjectRayOrigin(mouseEvent.Position);
-        _mouseQuery.To = _mouseQuery.From + camera.ProjectRayNormal(mouseEvent.Position) * MOUSE_QUERY_RAY_LENGTH;
-
-        var collision = GetWorld3D().DirectSpaceState.IntersectRay(_mouseQuery);
-
-        return collision.TryGetValue("position", out Variant pos) ? (Vector3) pos : Vector3.Zero;
-    }
+    
 
 }

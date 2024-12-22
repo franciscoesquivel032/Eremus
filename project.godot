@@ -62,6 +62,12 @@ click={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_30="Selectable"
+3d_physics/layer_31="Movable"
+3d_physics/layer_32="Interactable"
+
 [rendering]
 
 anti_aliasing/quality/msaa_3d=3

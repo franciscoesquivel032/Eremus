@@ -22,6 +22,14 @@ public partial class CameraManager : Manager<CameraManager>
 	public CameraSettings Settings { get { return _settings; } }
 
 
+	/// <summary>
+	///  Length of the ray to be cast from the viewport to calculate mouse world position
+	/// </summary>
+	private const float MOUSE_QUERY_RAY_LENGTH = 100f;
+
+	private PhysicsRayQueryParameters3D _mouseQuery;
+
+
 	// Camera reference
 	private Camera3D _camera;
 	public Camera3D Camera { get { return _camera; } }
@@ -42,6 +50,8 @@ public partial class CameraManager : Manager<CameraManager>
 		// Get camera reference
 		_camera = GetCamera3D();
 		if(_camera == null){GD.Print("camera null");}
+
+		_mouseQuery = new();
 
 		GD.Print("Loaded Camera Manager");
     }
@@ -72,5 +82,20 @@ public partial class CameraManager : Manager<CameraManager>
 	private Node3D GetBaseMovementHandler() => GetNode<Node3D>("/root/World/Camera/BaseMovementHandler");
 	private Node3D GetRotationHandler() => GetNode<Node3D>("/root/World/Camera/RotationHandler");
 	private Node3D GetZoomHandler() => GetNode<Node3D>("/root/World/Camera/ZoomHandler");
+
+	/// <summary>
+	/// Gives the position of the mouse in world space from the viewport
+	/// </summary>
+	/// <returns></returns>
+	public Vector3 GetMouseWorldPosition()
+    {
+		var mousePos = GetViewport().GetMousePosition();
+        _mouseQuery.From = Camera.ProjectRayOrigin(mousePos);
+        _mouseQuery.To = _mouseQuery.From + Camera.ProjectRayNormal(mousePos) * MOUSE_QUERY_RAY_LENGTH;
+
+        var collision = Camera.GetWorld3D().DirectSpaceState.IntersectRay(_mouseQuery);
+
+        return collision.TryGetValue("position", out Variant pos) ? (Vector3) pos : Vector3.Zero;
+    }
 
 }
