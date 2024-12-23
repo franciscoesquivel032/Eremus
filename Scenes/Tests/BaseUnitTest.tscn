@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3p2yjl6pee55"]
+
+[ext_resource type="Script" path="res://Scripts/Units/BaseUnit.cs" id="1_5hq3g"]
+[ext_resource type="Script" path="res://Scripts/Units/Selection/Selectable.cs" id="2_tj7go"]
+[ext_resource type="Script" path="res://Scripts/Units/Movement/Movable.cs" id="3_bx16s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_is8vq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6xfhn"]
+
+[node name="BaseUnit" type="CharacterBody3D"]
+script = ExtResource("1_5hq3g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_is8vq")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1.1, 0, 0, 0, 2.06, 0, 0, 0, 1.035, 0, 0, 0)
+
+[node name="Selectable" type="Area3D" parent="."]
+script = ExtResource("2_tj7go")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Selectable"]
+shape = SubResource("BoxShape3D_6xfhn")
+
+[node name="Movable" type="Area3D" parent="."]
+script = ExtResource("3_bx16s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Movable"]
+shape = SubResource("BoxShape3D_6xfhn")
