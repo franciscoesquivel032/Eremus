@@ -50,12 +50,12 @@ public partial class CameraInputHandler : Node3D
 	    if (@event is InputEventMouseButton mouseEvent)
     {
         // Detects scroll up (zoom in)
-        if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
+        if (mouseEvent.IsAction("camera_zoom_in"))
         {
             _zoomHandler.Process(-1); // Zoom in
         }
         // Detects scroll down (zoom out)
-        else if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
+        else if (mouseEvent.IsAction("camera_zoom_out"))
         {
             _zoomHandler.Process(1); // Zoom out
         }
@@ -114,7 +114,8 @@ public partial class CameraInputHandler : Node3D
         // Detect mouse right click
         if (@event is InputEventMouseButton mouseEvent)
         {
-            if (mouseEvent.ButtonIndex == MouseButton.Right)
+
+            if (mouseEvent.IsAction("camera_rotate"))
             {
                 _isRotating = mouseEvent.Pressed;
 

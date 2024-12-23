@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://deyjfmy8os5hd"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/ItemData.cs" id="1_m5h7q"]
+
+[resource]
+script = ExtResource("1_m5h7q")
+Id = "00001"
+Name = "Stone"
+Description = "Dwayne Johnson would be proud."
