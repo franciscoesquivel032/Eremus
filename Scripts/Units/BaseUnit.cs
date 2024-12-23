@@ -15,6 +15,7 @@ public partial class BaseUnit : CharacterBody3D /* , IInteractable */
 	{
 		base._EnterTree();
 
+	
 		_selectable = GetNode<Selectable>("Selectable");
 		_movable = GetNode<Movable>("Movable");
 		
