@@ -7,7 +7,7 @@ using System.Diagnostics;
 /// Camera that handles camera rotation
 /// 
 /// </summary>
-public partial class CameraRotationHandler : Node3D, IInitializer
+public partial class CameraRotationHandler : Node3D
 {
 
     // SpringArm reference
@@ -22,13 +22,7 @@ public partial class CameraRotationHandler : Node3D, IInitializer
     /// </summary>
     public override void _Ready()
     {
-       InitReferences();
-
-    }
-
-      public void InitReferences()
-    {
-         _parent = GetParent<Node3D>();
+        _parent = GetParent<Node3D>();
 
         CameraSettings settings = CameraManager.Instance.Settings;
         _rotationSensitivity = settings.RotationSensitivity;

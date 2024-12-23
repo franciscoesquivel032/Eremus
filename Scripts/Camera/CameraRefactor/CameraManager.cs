@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 /// _______________
 /// 
 /// </summary>
-public partial class CameraManager : Manager<CameraManager>, ILoader, IInitializer
+public partial class CameraManager : Manager<CameraManager>
 {
 
 	// Settings reference
@@ -38,33 +38,21 @@ public partial class CameraManager : Manager<CameraManager>, ILoader, IInitializ
 		Prints.Loading(this);
 
 		// Load settings from Resources folder
-		LoadResources();
-		
-		// Get camera reference
-		InitReferences();
-
-		Prints.Loaded(this);
-    }
-
-	    public void InitReferences()
-    {
-        _camera = GetCamera3D();
-		_ = _camera ?? throw new CameraSystemNullReferenceException("Camera not initialized...");
-		
-		// OK flag
-		Prints.ResourceLoadSuccessfully(this);
-    }
-
-
-	    public void LoadResources()
-    {
-        _settings = GD.Load<CameraSettings> ("res://Data(Resources)/CameraSettings.tres");
+		_settings = GD.Load<CameraSettings> ("res://Data(Resources)/CameraSettings.tres");
         _ = _settings ?? throw new ResourceLoadException("Settings Resource unable to load...");
 
 		// OK flag
 		Prints.RefsInitSuccessfully(this);
-    }
+		
+		// Get camera reference
+		_camera = GetCamera3D();
+		_ = _camera ?? throw new CameraSystemNullReferenceException("Camera not initialized...");
+		
+		// OK flag
+		Prints.ResourceLoadSuccessfully(this);
 
+		Prints.Loaded(this);
+    }
 
     // ::: Utility methods ::: 
 

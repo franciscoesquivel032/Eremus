@@ -7,7 +7,7 @@ using System.Diagnostics;
 /// Class that handles camera X axis movement
 /// 
 /// </summary>
-public partial class CameraMovementHandler : Node3D, IInitializer
+public partial class CameraMovementHandler : Node3D
 {
     
     // Settings
@@ -23,12 +23,7 @@ public partial class CameraMovementHandler : Node3D, IInitializer
     ///  Future refactor incoming { settings = _resourceSettings }
     /// </summary>
     public override void _Ready() {
-        InitReferences();
-    }
-
-    public void InitReferences()
-    {
-        CameraSettings settings = CameraManager.Instance.Settings;
+          CameraSettings settings = CameraManager.Instance.Settings;
 
         _cameraMoveSpeed = settings.CameraMoveSpeed;
         _cameraCanMoveBase = true;
