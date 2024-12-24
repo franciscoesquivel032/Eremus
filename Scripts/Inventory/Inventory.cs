@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-
+//TODO
 /// <summary>
 /// 
 /// An inventory is a list of InventorySlot
@@ -29,8 +29,26 @@ using System.Collections.Generic;
 /// just in case we want to do a rapid search of an item stored.
 /// 
 /// </summary>
-public partial class Inventory : Resource 
+public partial class Inventory : Node3D
 {
-    public List<InventorySlot> Items { get; set; }
+
+    // InventorySize resource contains an int "Size"
+    [Export]
+    public InventorySize _capacity;
+
+    private List<InventorySlot> _items;
+    public List<InventorySlot> Items
+    {
+        get { return _items; }
+    }
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        _items = new(_capacity.Size);
+    }
+
+
 
 }
