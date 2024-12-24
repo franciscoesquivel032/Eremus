@@ -21,4 +21,7 @@ public partial class ItemData : Resource
 
     [Export]
     public Mesh Visuals { get; set; }
+
+    [Export]
+    public ItemAction UseAction { get; set; }
 }
