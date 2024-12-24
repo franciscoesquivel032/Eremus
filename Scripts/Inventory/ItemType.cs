@@ -6,5 +6,5 @@
 /// </summary>
 public enum ItemType 
 {
-    RESOURCE, DOCUMENT
+    RESOURCE, DOCUMENT, EQUIPMENT
 }

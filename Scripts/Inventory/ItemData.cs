@@ -20,6 +20,9 @@ public partial class ItemData : Resource
     public string Description { get; set; }
 
     [Export]
+    public int Weight { get; set; }
+
+    [Export]
     public Mesh Visuals { get; set; }
 
     [Export]

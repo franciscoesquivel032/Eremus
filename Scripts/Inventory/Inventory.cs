@@ -1,54 +1,118 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 //TODO
 /// <summary>
-/// 
-/// An inventory is a list of InventorySlot
-/// which represents the ItemData and the amount of units stored
-/// 
-/// ------
-/// 
-/// Better aproach than storing a Dictionary<ItemData,int> 
-/// due to its limitations when designing the UI since Dictionaries
-/// don't have an order and this aproach is way more scalable
-/// [...]
-/// 
-/// Example : in case we want to implement
-/// more data to an inventory slot such as a 
-/// frame colored based on the ItemType
-/// 
-/// [...] + 
-/// Godot doesn't support Dictionaries to be visible from the inspector
-/// 
-/// ------
-/// 
-/// In the other hand, this model is less accessible.
-/// We can overcome this limitation writing a function
-/// in the inventory handler script that builds and returns a Dictionary
-/// just in case we want to do a rapid search of an item stored.
-/// 
+/// Inventory is a Dictionary where
+///     Key => ItemData
+///     Value => Amount of units stored of its key ItemData
+/// Inventory has a capacity represented by a Resource named InventorySize
 /// </summary>
 public partial class Inventory : Node3D
 {
 
     // InventorySize resource contains an int "Size"
     [Export]
-    public InventorySize _capacity;
+    public InventorySize Capacity;
 
-    private List<InventorySlot> _items;
-    public List<InventorySlot> Items
+    private Dictionary<ItemData, int> _items;
+    public Dictionary<ItemData, int> Items => _items;
+   
+   /// <summary>
+   /// Adds an item with a given quantity to the dictionary of items
+   /// </summary>
+   /// <param name="item"></param>
+   /// <param name="quantity"></param>
+   /// <returns></returns>
+    public bool AddItem(ItemData item, int quantity)
     {
-        get { return _items; }
+        bool success = true; // return var
+        int currentWeight = GetCurrentWeight(); // stores the current weight
+        int addedWeight = item.Weight * quantity; // stores the weight of the items to be addded
+
+        // Checks if there is enough room to add the item
+        if(currentWeight + addedWeight > Capacity.MaxCapacity)
+        {
+            success = false;
+        }   
+
+        // If the added item is already stored adds the quantity introduced to its current
+        // otherwise it adds a new Entry to de Dictionary
+        _items[item] = Items.ContainsKey(item) ?
+        _items[item] + quantity :
+        quantity; 
+
+        return success;
     }
 
-    public override void _Ready()
+    /// <summary>
+    /// Substracts the indicated quantity from the given Key
+    /// If the resulting quantity is less or equal to zero, remove the indicated item from the Dictionary
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="quantity"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    public void RemoveItem(ItemData item, int quantity)
     {
-        base._Ready();
+        // Checks if the item is stores in the Dictionary
+        if(!IsItem(item)) throw new ArgumentException("Item introduced is not in the inventory...");
 
-        _items = new(_capacity.Size);
+        // Checks if the quantity introduced is below quantity stored
+        if(_items[item] < quantity) throw new InvalidOperationException("Quantity introduced surpases the current units of the item...");
+
+        // Substracts the amount of items indicated
+        _items[item] -= quantity;
+
+        // If the resulting amount of the item stored is less or equal to zero remove the item from the Dictionary
+        if(IsQuantBelowZero(item))
+            _items.Remove(item);
+
     }
 
+    /// <summary>
+    /// Edits the quantity of a given item
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="newQuantity"></param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
+    public void EditItem (ItemData item, int newQuantity)
+    {
+        int currentWeight; 
+        int previousWeight;
+        int newWeight;
 
+        // Checks if the item is stored in the Dictionary
+        if(!IsItem(item)) 
+            throw new ArgumentException("Item introduced is not in the inventory...");
+
+        currentWeight = GetCurrentWeight();
+        previousWeight = item.Weight * _items[item];
+        newWeight = item.Weight * newQuantity;
+
+        // If we substract the former weight of an item to add its new weight and it exceedes the MaxCapacity of the inventory
+        if (currentWeight - previousWeight + newWeight > Capacity.MaxCapacity)
+            throw new InvalidOperationException("Weight exceeded...");
+
+        // Edit quantity
+        _items[item] = newQuantity;
+
+        // If the resulting amount of the item stored is less or equal to zero remove the item from the Dictionary
+        if(IsQuantBelowZero(item))
+            _items.Remove(item);
+
+    }
+
+    // Returns rather or not an item quantity is below 0
+    public bool IsQuantBelowZero(ItemData item) => _items[item] <= 0;
+
+    // Returns the current total weight
+    public int GetCurrentWeight() => Capacity.CurrentWeight(_items);
+
+    // Returns rather or not an item is stored in the Dictionary
+    public bool IsItem(ItemData item) => _items.ContainsKey(item);
 
 }
