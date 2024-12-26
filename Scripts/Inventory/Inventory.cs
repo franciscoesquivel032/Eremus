@@ -9,7 +9,7 @@ using System.Collections.Generic;
 ///     Value => Amount of units stored of its key ItemData
 /// Inventory has a capacity represented by a Resource named InventorySize
 /// </summary>
-public partial class Inventory : Node3D
+public partial class Inventory : Node
 {
 
     // InventorySize resource contains an int "Size"
@@ -58,10 +58,12 @@ public partial class Inventory : Node3D
     public void RemoveItem(ItemData item, int quantity)
     {
         // Checks if the item is stores in the Dictionary
-        if(!IsItem(item)) throw new ArgumentException("Item introduced is not in the inventory...");
+        if(!IsItem(item)) 
+            throw new ArgumentException("Item introduced is not in the inventory...");
 
         // Checks if the quantity introduced is below quantity stored
-        if(_items[item] < quantity) throw new InvalidOperationException("Quantity introduced surpases the current units of the item...");
+        if(_items[item] < quantity) 
+            throw new InvalidOperationException("Quantity introduced surpases the current units of the item...");
 
         // Substracts the amount of items indicated
         _items[item] -= quantity;
