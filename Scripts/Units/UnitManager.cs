@@ -6,6 +6,7 @@ using Godot.Collections;
 
 public delegate void TargetChangedHandler(Vector3 Target);
 
+[ManagerOrder(1)]
 public partial class UnitManager : Manager<UnitManager>
 {
 

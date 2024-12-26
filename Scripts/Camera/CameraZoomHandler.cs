@@ -9,9 +9,9 @@ using System.Diagnostics;
 /// 
 /// </summary>
 
-public partial class CameraZoomHandler : Node3D
+public partial class CameraZoomHandler : Node3D, ICameraHandler
 {
-    private Node3D _parent; // Parent node reference
+    private Camera3D _camera; // Parent node reference
 
     // fields obtained from Manager
 	private float _cameraZoomSpeed; // zoom speed
@@ -24,9 +24,9 @@ public partial class CameraZoomHandler : Node3D
     ///  Settings initialization 
     ///  Future refactor incoming { settings = _resourceSettings }
     /// </summary>
-    public override void _Ready()
+    public void Init()
     {
-         _parent = GetParent<Node3D>();
+        _camera = CameraManager.Instance.Camera;
 
         // Get settings
         CameraSettings settings = CameraManager.Instance.Settings;
@@ -37,8 +37,6 @@ public partial class CameraZoomHandler : Node3D
         _cameraZoomStep = settings.CameraZoomStep;
     }
 
-
-
     /// <summary>
     /// Calculates Position.Y value based on _cameraZoomSpeed and _cameraZoomDirection
     /// Constraints new Z to _cameraZoomMin and _cameraZoomMax values
@@ -48,13 +46,13 @@ public partial class CameraZoomHandler : Node3D
     public void Process(float direction){
 
 		// Calculate new Y based on direction and zoom step setting
-        float newY = _parent.Position.Y + _cameraZoomStep * direction;
+        float newY = _camera.Position.Y + _cameraZoomStep * direction;
 
         // Constraint new Y value
         newY = Mathf.Clamp(newY, _cameraZoomMin, _cameraZoomMax);
 
         // Update position
-        _parent.Position = new Vector3(_parent.Position.X, newY, _parent.Position.Z);
+        _camera.Position = new Vector3(_camera.Position.X, newY, _camera.Position.Z);
 	}
 
    

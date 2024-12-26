@@ -3,7 +3,10 @@
 
 
 
+using System;
 using Godot;
+
+public delegate void OnManagerReady();
 
 public abstract partial class Manager<T> : Node where T: Manager<T>, new()
 {
@@ -14,9 +17,15 @@ public abstract partial class Manager<T> : Node where T: Manager<T>, new()
     /// </summary>
     public static T Instance => _instance ?? new();
 
+    /// <summary>
+    /// Fires an event when the manager is ready.
+    /// </summary>
+    public event OnManagerReady ManagerReady;
+
     public override void _EnterTree()
     {
         SetClassnameAsName();
+        _instance = this as T;
     }
 
     /// <summary>
@@ -27,5 +36,10 @@ public abstract partial class Manager<T> : Node where T: Manager<T>, new()
         // Sets the name of the node as the class for the editor
         Name = GetType().Name;
     }
+
+    protected virtual void OnManagerReady()
+    {
+        ManagerReady?.Invoke();
+    }   
 
 }
