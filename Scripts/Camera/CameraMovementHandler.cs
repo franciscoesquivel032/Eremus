@@ -7,7 +7,7 @@ using System.Diagnostics;
 /// Class that handles camera X axis movement
 /// 
 /// </summary>
-public partial class CameraMovementHandler : Node3D
+public partial class CameraMovementHandler : Node3D, ICameraHandler
 {
     
     // Settings
@@ -16,18 +16,18 @@ public partial class CameraMovementHandler : Node3D
     private bool _cameraCanMoveBase;
 
     // Parent reference
-    private Node3D _parent;   
+    private Camera3D _camera;   
 
     /// <summary>
     ///  Settings default values initialization 
     ///  Future refactor incoming { settings = _resourceSettings }
     /// </summary>
-    public override void _Ready() {
-          CameraSettings settings = CameraManager.Instance.Settings;
+    public void Init() {
+        CameraSettings settings = CameraManager.Instance.Settings;
 
         _cameraMoveSpeed = settings.CameraMoveSpeed;
         _cameraCanMoveBase = true;
-        _parent = GetParent<Node3D>();
+        _camera = CameraManager.Instance.Camera;
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public partial class CameraMovementHandler : Node3D
     /// <param name="delta"></param>
     public void Process(Vector3 direction, double delta){
         if(_cameraCanMoveBase)
-            _parent.Position += direction.Normalized() * _cameraMoveSpeed * (float)delta;
+            _camera.Position += direction.Normalized() * _cameraMoveSpeed * (float)delta;
     }
 
 

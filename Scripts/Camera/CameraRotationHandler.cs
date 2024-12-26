@@ -7,11 +7,11 @@ using System.Diagnostics;
 /// Camera that handles camera rotation
 /// 
 /// </summary>
-public partial class CameraRotationHandler : Node3D
+public partial class CameraRotationHandler : Node3D, ICameraHandler
 {
 
     // SpringArm reference
-    private Node3D _parent;
+    private Node3D _camera;
 
     // Rotation sensitivity
     private float _rotationSensitivity;
@@ -20,9 +20,9 @@ public partial class CameraRotationHandler : Node3D
     ///  Settings default values initialization 
     ///  Future refactor incoming { settings = _resourceSettings }
     /// </summary>
-    public override void _Ready()
+    public void Init()
     {
-        _parent = GetParent<Node3D>();
+        _camera = CameraManager.Instance.Camera;
 
         CameraSettings settings = CameraManager.Instance.Settings;
         _rotationSensitivity = settings.RotationSensitivity;
@@ -31,7 +31,7 @@ public partial class CameraRotationHandler : Node3D
 	 public void RotateCamera(float deltaX)
     {
         // Rotate SpringArm3D around Y axis
-        _parent.RotateY(Mathf.DegToRad(-deltaX * _rotationSensitivity));
+        _camera.RotateY(Mathf.DegToRad(-deltaX * _rotationSensitivity));
     }
 
     // TEMP

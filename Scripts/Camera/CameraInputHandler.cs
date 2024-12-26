@@ -6,7 +6,7 @@ using Godot;
 /// 
 /// </summary>
 
-public partial class CameraInputHandler : Node3D
+public partial class CameraInputHandler : Node3D, ICameraHandler
 {
     // Camera base movement variables
     private Vector3 _directionVector;
@@ -22,21 +22,23 @@ public partial class CameraInputHandler : Node3D
     private float _zoomDirection;
 
 
-    public override void _Ready()
+    public void Init()
     {
-        base._Ready();
+        GD.Print("Init input handler");
 
         // Base movement
         _directionVector = Vector3.Zero;
-        _movementHandler = GetNode<CameraMovementHandler>("../BaseMovementHandler");
+        _movementHandler = CameraManager.Instance.MovementHandler;
+
+        GD.Print(_movementHandler);
 
         // Rotation
         _isRotating = false;
-        _rotationHandler = GetNode<CameraRotationHandler>("../RotationHandler");
+        _rotationHandler = CameraManager.Instance.RotationHandler;
 
         // Zoom
         _cameraCanZoom = true;
-        _zoomHandler = GetNode<CameraZoomHandler>("../ZoomHandler");
+        _zoomHandler = CameraManager.Instance.ZoomHandler;
         _zoomDirection = 0;
     }
 
