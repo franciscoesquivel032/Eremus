@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Units/Selection/Selectable.cs" id="2_tj7go"]
 [ext_resource type="Script" path="res://Scripts/Units/Movement/Movable.cs" id="3_bx16s"]
 [ext_resource type="Script" path="res://Scripts/Inventory/Inventory.cs" id="4_740wy"]
-[ext_resource type="Resource" uid="uid://bmb4kom5hj8nb" path="res://Data(Resources)/Items/InventorySizes/DefaultInventorySize.tres" id="5_tyvu0"]
+[ext_resource type="Resource" uid="uid://bmb4kom5hj8nb" path="res://Data(Resources)/Items/InventorySizes/DefaultInventorySize.tres" id="5_6o8cu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_is8vq"]
 
@@ -31,7 +31,6 @@ script = ExtResource("3_bx16s")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Movable"]
 shape = SubResource("BoxShape3D_6xfhn")
 
-[node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("Items")]
+[node name="Inventory" type="Node3D" parent="."]
 script = ExtResource("4_740wy")
-_capacity = ExtResource("5_tyvu0")
-Items = []
+Capacity = ExtResource("5_6o8cu")

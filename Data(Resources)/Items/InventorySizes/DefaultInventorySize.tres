@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_4tpi5")
-Size = 9
+MaxCapacity = 2000

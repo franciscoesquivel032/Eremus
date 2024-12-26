@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpkuelakmhsms"]
+
+[ext_resource type="Script" path="res://Scripts/Inventory/Inventory.cs" id="1_5jqs2"]
+[ext_resource type="Resource" uid="uid://bmb4kom5hj8nb" path="res://Data(Resources)/Items/InventorySizes/DefaultInventorySize.tres" id="2_3wrl0"]
+
+[node name="Inventory" type="Node3D"]
+script = ExtResource("1_5jqs2")
+Capacity = ExtResource("2_3wrl0")
