@@ -19,6 +19,7 @@ public partial class MainManager : Node
     {    
         Prints.Loading(this);
 
+        AddChild(InventoryManager.Instance);
         AddChild(CameraManager.Instance);
         AddChild(UnitManager.Instance);
 

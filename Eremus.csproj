@@ -6,4 +6,10 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="linq2db" Version="5.4.1" />
+    <PackageReference Include="linq2db.SQLite" Version="5.4.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.0" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
+  </ItemGroup>
 </Project>
