@@ -43,6 +43,13 @@ public partial class Selectable: Area3D
     [Export]
     public bool IsSelected { get; set; }
 
+    /// <summary>
+    /// Is the main focused entity by the Manager?
+    /// </summary>
+    [Export]
+    public bool IsFocused { get; set; }
+
+
     public override void _EnterTree()
     {
         base._EnterTree();
@@ -53,6 +60,11 @@ public partial class Selectable: Area3D
         // TODO: Create more layers? Since another selectable could fire false positives
         SetCollisionLayerValue((int) UnitManager.Layers.Selectable, true);
         SetCollisionMaskValue((int) UnitManager.Layers.Selectable, true);
+
+
+        /* InputEvent += (camera, InputEvent, event_position, normal, shape_idx) => {
+            UnitManager.Instance.HandleSelectableEntered(this);
+        }; */
 
         AreaEntered += (value) => {
             UnitManager.Instance.HandleSelectableEntered(this);
@@ -67,40 +79,49 @@ public partial class Selectable: Area3D
             Mesh = AssetManager.Instance.GetMesh("selected_secondary_halo.tres"),
             Visible = false
         };
-        
+
 
         AddChild(_halo);
 
 
         GotFocus += () => {
-            if (IsSelected)
-            {
-                // TODO: Make it static in Selectable?
-                _halo.Mesh = AssetManager.Instance.GetMesh("selected_main_halo.tres");
-            }
+            
         };
 
         LostFocus += () => {
-            if (IsSelected)
-            {
-                // TODO: Make it static in Selectable?
-                _halo.Mesh = AssetManager.Instance.GetMesh("selected_secondary_halo.tres");
-            }
+            
         };
     }
 
-    public void InvokeSelected()
+    public void Select()
     {
         Selected?.Invoke();
         IsSelected = true;
         _halo.Visible = true;
     }
 
-    public void InvokeDeSelected()
+    public void Deselect()
     {
         Deselected?.Invoke();
         IsSelected = false;
         _halo.Visible = false;
+
+        // Unset focus if it was focused
+        if (IsFocused) Unfocus();
+    }
+
+    public void Focus()
+    {
+        GotFocus?.Invoke();
+        IsFocused = true;
+        _halo.Mesh = AssetManager.Instance.GetMesh("selected_main_halo.tres");
+    }
+
+    public void Unfocus()
+    {
+        LostFocus?.Invoke();
+        IsFocused = false;
+        _halo.Mesh = AssetManager.Instance.GetMesh("selected_secondary_halo.tres");
     }
 
 }

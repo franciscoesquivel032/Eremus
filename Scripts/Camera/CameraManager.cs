@@ -98,19 +98,5 @@ public partial class CameraManager : Manager<CameraManager>
 
         return handler;
     }
-
-    /// <summary>
-	/// Gives the position of the mouse in world space from the viewport
-	/// </summary>
-	/// <returns></returns>
-	public Vector3 GetMouseWorldPosition()
-	{
-		var mousePos = GetViewport().GetMousePosition();
-		_mouseQuery.From = Camera.ProjectRayOrigin(mousePos);
-		_mouseQuery.To = _mouseQuery.From + Camera.ProjectRayNormal(mousePos) * MOUSE_QUERY_RAY_LENGTH;
-
-		var collision = Camera.GetWorld3D().DirectSpaceState.IntersectRay(_mouseQuery);
-
-		return collision.TryGetValue("position", out Variant pos) ? (Vector3)pos : Vector3.Zero;
-	}
+    
 }

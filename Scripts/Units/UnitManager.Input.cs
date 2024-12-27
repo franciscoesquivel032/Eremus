@@ -54,11 +54,13 @@ public partial class UnitManager : Manager<UnitManager>
                     {
                         if (mouseEvent.IsPressed())
                         {
+                            _selectionHandler.Monitoring = true;
                             DeselectedAllUnits();
                             StartSelection(mouseEvent);
                         }
                         else
                             EndSelection();
+                            _selectionHandler.Monitoring = false;
                         break;
                     }
                 case MouseButton.Right:

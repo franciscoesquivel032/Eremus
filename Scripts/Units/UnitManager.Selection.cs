@@ -1,11 +1,12 @@
 using System;
+using System.Linq;
 using Godot;
 
 
 public partial class UnitManager : Manager<UnitManager>
 {
 
-    /// <summary>
+	/// <summary>
 	/// Projects 4 rect corners into space, onto a viewing plane at z distance from the given camera 
 	/// projection is done using given camera's perspective projection settings 
 	/// </summary>
@@ -24,13 +25,13 @@ public partial class UnitManager : Manager<UnitManager>
 	}
 
 
-    /// <summary>
+	/// <summary>
 	/// Sets the shape to be a polygon based on the current selection from the viewport
 	/// </summary>
 	/// <param name="shape">The shape to modify</param>
 	/// <param name="rect"></param>
 	/// <param name="camera"></param>
-	static void ModifyFrustumCollisionMesh(Shape3D shape, Rect2 rect, Camera3D camera)
+	static void ModifyFrustumCollisionMesh(Shape3D shape, Rect2 rect, Camera3D camera, bool empty = false)
 	{
 		// Project 4 corners of the rect to the camera near plane
 		var pnear = ProjectSelection(rect, camera, camera.Near + NEAR_FAR_MARGIN);
@@ -61,12 +62,14 @@ public partial class UnitManager : Manager<UnitManager>
 				pnear[1], pfar[1], pfar[2],
 				pnear[1], pfar[2], pnear[2]
 			];
-		} else {
+		}
+		else
+		{
 			throw new Exception("The selection shape is invalid");
 		}
 	}
 
-    /// <summary>
+	/// <summary>
 	/// Ensures that the selection is within limits and regenerates its shape
 	/// </summary>
 	void RedrawSelectionShape()
@@ -86,47 +89,83 @@ public partial class UnitManager : Manager<UnitManager>
 			case SelectionState.Selecting:
 				{
 					RedrawSelectionShape();
-					
+
+					SelectionCheck();
+
 					break;
 				}
 			case SelectionState.LastCheck:
 				{
 					RedrawSelectionShape();
-					
+
+					SelectionCheck();
+
 					_selectionState = SelectionState.None;
 					break;
 				}
 		}
-
-
-		Selected.ForEach(selec => GD.Print(selec));
 	}
 
+	private void SelectionCheck()
+	{
+		if (Selected.Count > 0)
+		{
+			var first = Selected.First();
+			UpdateMainUnit(first);
+		}
+
+	}
+
+	private void UpdateMainUnit(Selectable newMainUnit)
+	{
+		if (_selectionState == SelectionState.LastCheck)
+		{
+			if (_mainUnit == newMainUnit && _firstPos == _secondPos)
+			{
+				GD.Print("Unsetting main unit!");
+
+				if (Selected.Count == 1)
+					_mainUnit?.Deselect();
+				else
+					_mainUnit?.Unfocus();
+
+				_mainUnit = null;
+			}
+			else
+			{
+				GD.Print("Setting new main unit!");
+				_mainUnit = newMainUnit;
+				_mainUnit?.Focus();
+			}
+		}
+	}
 
 	public void HandleSelectableEntered(Selectable selectable)
 	{
-		if (_selectionState == SelectionState.Selecting 
-			|| _selectionState == SelectionState.LastCheck)
-        {
-			selectable.InvokeSelected();
-        	Selected.Add(selectable);
-        }
+		if (_selectionState != SelectionState.None)
+		{
+			selectable.Select();
+			Selected.Add(selectable);
+		}
 	}
 
 	public void HandleSelectableExited(Selectable selectable)
 	{
-		if (_selectionState == SelectionState.Selecting 
-			|| _selectionState == SelectionState.LastCheck)
-        {
-			selectable.InvokeDeSelected();
-        	Selected.Remove(selectable);
-        }
+		if (_selectionState != SelectionState.None)
+		{
+			selectable.Deselect();
+			Selected.Remove(selectable);
+		}
 	}
 
 	private void DeselectedAllUnits()
 	{
-		Selected.ForEach(selectable => selectable.InvokeDeSelected());
+		Selected.ForEach(selectable => selectable.Deselect());
 		Selected.Clear();
+
+		// If it was already null, nothing will happen, 
+		// otherwise it will stopped being focused
+		UpdateMainUnit(null);
 	}
-	
+
 }

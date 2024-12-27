@@ -45,7 +45,7 @@ public partial class UnitManager : Manager<UnitManager>
 	private Area3D _movementHandler;
 
 
-	private Selectable _mainUnit;
+	private Selectable _mainUnit, _lastSelected;
 	public List<Selectable> Selected { get; private set; }
 
 	public override void _EnterTree()
@@ -61,9 +61,9 @@ public partial class UnitManager : Manager<UnitManager>
 
 		AddChild(Rect);
 
-		PrepareHandlerArea(_interactionHandler, Layers.Interactable);
-		PrepareHandlerArea(_selectionHandler, Layers.Selectable);
-		PrepareHandlerArea(_movementHandler, Layers.Movable);
+		PrepareHandlerArea(ref _interactionHandler, Layers.Interactable);
+		PrepareHandlerArea(ref _selectionHandler, Layers.Selectable);
+		PrepareHandlerArea(ref _movementHandler, Layers.Movable);
 
 		_selectionState = SelectionState.None;
 
@@ -79,7 +79,7 @@ public partial class UnitManager : Manager<UnitManager>
 	/// </summary>
 	/// <param name="handler"></param>
 	/// <param name="layer"></param>
-	public void PrepareHandlerArea(Area3D handler, Layers layer)
+	public void PrepareHandlerArea(ref Area3D handler, Layers layer)
     {
 		// It receives a reference to the handle to generate
         handler = new Area3D();
