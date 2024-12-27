@@ -8,7 +8,7 @@ public partial class BaseUnit : CharacterBody3D /* , IInteractable */
 {
 
 	private Selectable _selectable;
-	private Movable _movable;
+	private MovementHandler _movementHandler;
 
 
 	public override void _EnterTree()
@@ -17,28 +17,12 @@ public partial class BaseUnit : CharacterBody3D /* , IInteractable */
 
 	
 		_selectable = GetNode<Selectable>("Selectable");
-		_movable = GetNode<Movable>("Movable");
+		_movementHandler = GetNode<MovementHandler>("MovementHandler");
 		
-		_selectable.Selected += () => _movable.CanUpdateTarget = true;
-		_selectable.Deselected += () => _movable.CanUpdateTarget = false;
+		_selectable.Selected += () => _movementHandler.CanUpdateTarget = true;
+		_selectable.Deselected += () => _movementHandler.CanUpdateTarget = false;
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-		base._PhysicsProcess(delta);
-
-		// If the movable node is moving, then move towards its target parallel to the ground
-		if (_movable.Moving)
-		{
-			Position = Position.MoveToward(
-				_movable.Target with { Y = Position.Y },
-				(float) delta);
-
-			// If the position is within tolerance, then stop moving
-			if (Position.DistanceTo(_movable.Target) < _movable.Tolerance)
-				_movable.Moving = false;
-		}
-
-	}
+	
 
 }

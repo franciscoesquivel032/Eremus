@@ -7,10 +7,9 @@ using Godot;
 /// <summary>
 /// A node that allows an entity to listen for movement events from the Manager
 /// </summary>
-[GlobalClass]
-public partial class Movable: Area3D
+public abstract partial class Movable: Area3D
 {
-	
+
 	private Vector3 _target;
 
 	/// <summary>
@@ -44,6 +43,15 @@ public partial class Movable: Area3D
 	[Export]
 	public bool CanUpdateTarget { get; set; }
 
+	/// <summary>
+	/// Is the entity listening to the target updates from the Manager?
+	/// </summary>
+	[Export]
+	protected bool _canMove;
+
+
+	protected Node3D _parent;
+
 
     public override void _EnterTree()
     {
@@ -56,7 +64,24 @@ public partial class Movable: Area3D
         SetCollisionMaskValue((int) UnitManager.Layers.Movable, true);
 
 		UnitManager.Instance.TargetChanged += UpdateTarget;
+
+		_parent = GetParentNode3D();
     }
+
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+
+		// If the movable node is moving, then move towards its target parallel to the ground
+		if (Moving)
+		{
+			Move(delta);
+		}
+
+	}
+
+
+	protected abstract void Move(double delta);
 
 	// TODO: Having all movable objects checking each time 
 	// if the target its changed doesn't seem very efficient
