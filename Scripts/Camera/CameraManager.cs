@@ -1,6 +1,6 @@
 using Godot;
 
-[ManagerOrder(0)]
+[ManagerOrder(1)]
 public partial class CameraManager : Manager<CameraManager>
 {
     // Settings

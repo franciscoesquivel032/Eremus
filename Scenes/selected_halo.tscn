@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://muceco5lg2ma"]
+
+[ext_resource type="TorusMesh" uid="uid://by5h0wnc3vhcp" path="res://Scenes/units/meshes/selected_secondary_halo.tres" id="1_msi0c"]
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = ExtResource("1_msi0c")

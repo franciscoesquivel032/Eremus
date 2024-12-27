@@ -1,6 +1,7 @@
 using System;
 using Godot;
 
+
 public partial class UnitManager : Manager<UnitManager>
 {
 
@@ -97,6 +98,35 @@ public partial class UnitManager : Manager<UnitManager>
 				}
 		}
 
+
+		Selected.ForEach(selec => GD.Print(selec));
+	}
+
+
+	public void HandleSelectableEntered(Selectable selectable)
+	{
+		if (_selectionState == SelectionState.Selecting 
+			|| _selectionState == SelectionState.LastCheck)
+        {
+			selectable.InvokeSelected();
+        	Selected.Add(selectable);
+        }
+	}
+
+	public void HandleSelectableExited(Selectable selectable)
+	{
+		if (_selectionState == SelectionState.Selecting 
+			|| _selectionState == SelectionState.LastCheck)
+        {
+			selectable.InvokeDeSelected();
+        	Selected.Remove(selectable);
+        }
+	}
+
+	private void DeselectedAllUnits()
+	{
+		Selected.ForEach(selectable => selectable.InvokeDeSelected());
+		Selected.Clear();
 	}
 	
 }

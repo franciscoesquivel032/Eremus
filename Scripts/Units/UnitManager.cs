@@ -6,7 +6,7 @@ using Godot.Collections;
 
 public delegate void TargetChangedHandler(Vector3 Target);
 
-[ManagerOrder(1)]
+[ManagerOrder(2)]
 public partial class UnitManager : Manager<UnitManager>
 {
 
@@ -44,6 +44,10 @@ public partial class UnitManager : Manager<UnitManager>
 	private Area3D _selectionHandler;
 	private Area3D _movementHandler;
 
+
+	private Selectable _mainUnit;
+	public List<Selectable> Selected { get; private set; }
+
 	public override void _EnterTree()
 	{
 		GD.Print("Loading Unit Manager");
@@ -63,7 +67,9 @@ public partial class UnitManager : Manager<UnitManager>
 
 		_selectionState = SelectionState.None;
 
-		base._EnterTree();	
+		Selected = new();
+
+		base._EnterTree();
 		
 		GD.Print("Loaded Unit Manager");
 	}

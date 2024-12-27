@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://clc7yy5aqmtuq"]
+[gd_scene load_steps=6 format=3 uid="uid://clc7yy5aqmtuq"]
 
 [ext_resource type="PackedScene" uid="uid://df1kbmv0l0qj3" path="res://Scenes/Tests/FloorMeshTest.tscn" id="1_y14yu"]
+[ext_resource type="PackedScene" uid="uid://muceco5lg2ma" path="res://Scenes/selected_halo.tscn" id="3_ug3dn"]
 [ext_resource type="PackedScene" uid="uid://c3p2yjl6pee55" path="res://Scenes/Tests/BaseUnitTest.tscn" id="4_w05rb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4o0d"]
@@ -25,3 +26,8 @@ shape = SubResource("BoxShape3D_h2gh6")
 
 [node name="BaseUnit" parent="." instance=ExtResource("4_w05rb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10299, 0)
+
+[node name="BaseUnit2" parent="." instance=ExtResource("4_w05rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.20598, 0)
+
+[node name="MeshInstance3D" parent="." instance=ExtResource("3_ug3dn")]

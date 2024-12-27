@@ -1,0 +1,8 @@
+[gd_resource type="TorusMesh" load_steps=2 format=3 uid="uid://b67hrykamamls"]
+
+[ext_resource type="Material" uid="uid://bt13ip5svhf81" path="res://Scenes/units/halo_emissive_material.tres" id="1_kmv0b"]
+
+[resource]
+material = ExtResource("1_kmv0b")
+inner_radius = 0.9
+rings = 6

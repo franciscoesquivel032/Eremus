@@ -53,7 +53,10 @@ public partial class UnitManager : Manager<UnitManager>
                 case MouseButton.Left:
                     {
                         if (mouseEvent.IsPressed())
+                        {
+                            DeselectedAllUnits();
                             StartSelection(mouseEvent);
+                        }
                         else
                             EndSelection();
                         break;
