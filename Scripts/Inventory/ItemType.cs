@@ -6,5 +6,8 @@
 /// </summary>
 public enum ItemType 
 {
-    RESOURCE, DOCUMENT, EQUIPMENT
+    Resource,
+    Document,
+    Equipable,
+    Consumable
 }

@@ -1,11 +1,10 @@
 
-
-
-
 using System;
 using System.Linq;
 using System.Reflection;
 using Godot;
+
+// Purpose: MainManager is the main manager of the game, it is responsible for loading all the other managers in the correct order.
 
 public partial class MainManager : Node
 {
@@ -19,12 +18,12 @@ public partial class MainManager : Node
     {    
         Prints.Loading(this);
 
-        // Obtener todos los tipos de managers con el atributo ManagerOrder
+        // Obtain all manager types with ManagerOrder attribute
         var managerTypes = Assembly.GetExecutingAssembly().GetTypes()
             .Where(t => t.GetCustomAttribute<ManagerOrderAttribute>() != null)
             .OrderBy(t => t.GetCustomAttribute<ManagerOrderAttribute>().Order);
 
-        // Instanciar y añadir los managers en orden
+        // Instantiate and add all managers to the scene
         foreach (var type in managerTypes)
         {
             var instance = (Node)Activator.CreateInstance(type);
