@@ -25,4 +25,50 @@ public partial class Inventory : Node
         slots.ForEach(slot => _equipment.Add(slot, null));
     }
 
+    /// <summary>
+    /// Equip an item to a slot
+    /// if the item is null throw an exception
+    /// if the item is not equipable throw an exception
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="IllegalEquipableStateException"></exception>
+    /// <exception cref="System.ArgumentNullException"></exception>
+    public void EquipItem(Equipable item)
+    {
+        if(item != null)
+        {
+            if(item.Type == ItemType.Equipable)
+            {
+                _equipment[item.Slot] = item;
+            }
+            else
+            {
+                throw new IllegalEquipableStateException("Item is not equipable...");
+            }
+        }
+        else
+        {
+            throw new System.ArgumentNullException("Item cannot be null...");
+        }
+
+    }
+
+    /// <summary>
+    /// Unequip an item from a slot
+    /// if the slot does not exist throw an exception
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <exception cref="System.ArgumentException"></exception>
+    public void UnequipItem(EquipmentSlot slot)
+    {
+        if(_equipment.ContainsKey(slot))
+        {
+            _equipment[slot] = null;
+        }
+        else
+        {
+            throw new System.ArgumentException("Slot does not exist...");
+        }
+    }
+
 }
