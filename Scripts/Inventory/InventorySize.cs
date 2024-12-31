@@ -15,8 +15,5 @@ public partial class InventorySize : Resource
     /// </summary>
     /// <param name="items"></param>
     /// <returns></returns>
-    public int CurrentWeight (Dictionary<ItemData, int> items)
-    {
-        return items.Sum(i => i.Key.Weight * i.Value);
-    }
+    public int CurrentWeight (Dictionary<ItemData, int> items) => items.Sum(i => i.Key.Weight * i.Value);
 }

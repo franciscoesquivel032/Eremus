@@ -3,6 +3,7 @@ using Godot;
 /// <summary>
 /// Equipment slot enumeration
 /// Not clarified which slots are available yet
+/// TODO temporary item slots
 /// </summary>
 public enum EquipmentSlot
 {

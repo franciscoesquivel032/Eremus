@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b0q2n6qbybh5j"]
+
+[ext_resource type="Script" path="res://Scripts/Attributes/Attribute.cs" id="1_87ymv"]
+
+[resource]
+script = ExtResource("1_87ymv")
+Name = "Strength"
+Description = "Determines physical power"
+CurrentValue = 20.0
+MaxValue = 20.0
+MinValue = 20.0

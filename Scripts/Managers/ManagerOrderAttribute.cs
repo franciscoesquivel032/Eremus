@@ -1,7 +1,7 @@
 using System;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-public class ManagerOrderAttribute : Attribute
+public class ManagerOrderAttribute : System.Attribute
 {
     public int Order { get; }
 
