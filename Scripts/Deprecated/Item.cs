@@ -2,7 +2,6 @@
 using Godot;
 
 
-// TODO: This is a test
 
 
 [GlobalClass]

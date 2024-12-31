@@ -167,7 +167,6 @@ public partial class Camera : Node3D
 			_cameraZoomDirection = -1;
 		else if(@event.IsAction("camera_zoom_out"))
 			_cameraZoomDirection = 1;
-			// HACK: Fix for Mac, enhance
 		else if(@event is InputEventPanGesture gesture)
 			_cameraZoomDirection = Mathf.RoundToInt(gesture.Delta.Y);
 		

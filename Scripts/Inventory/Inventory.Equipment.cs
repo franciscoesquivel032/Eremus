@@ -25,6 +25,8 @@ public partial class Inventory : Node
         slots.ForEach(slot => _equipment.Add(slot, null));
     }
 
+
+    //TODO Stats calcs
     /// <summary>
     /// Equip an item to a slot
     /// if the item is null throw an exception
@@ -52,7 +54,8 @@ public partial class Inventory : Node
         }
 
     }
-
+    
+    //TODO Stats calcs
     /// <summary>
     /// Unequip an item from a slot
     /// if the slot does not exist throw an exception

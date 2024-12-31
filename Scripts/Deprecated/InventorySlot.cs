@@ -1,6 +1,5 @@
 using Godot;
 
-//TODO
 public partial class InventorySlot : Node
 {
 
