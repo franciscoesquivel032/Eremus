@@ -16,4 +16,20 @@ public partial class Stats : Resource
     public void SetAttribute(string name, Attribute attribute) => Attributes[name] = attribute;
     public void SetAttributeValue(string name, float value) => Attributes[name].CurrentValue = value;
     public void SetAttributeMaxValue(string name, float value) => Attributes[name].MaxValue = value;   
+
+    public Stats Clone()
+    {
+        var clone = new Stats
+        {
+            Attributes = new Godot.Collections.Dictionary<string, Attribute>()
+        };
+
+        foreach (var attribute in Attributes)
+        {
+            clone.Attributes.Add(attribute.Key, attribute.Value.Clone());
+        }
+
+        return clone;
+    }
+
 }
