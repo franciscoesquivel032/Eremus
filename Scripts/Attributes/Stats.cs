@@ -9,19 +9,20 @@ using Godot;
 public partial class Stats : Resource
 {
     [Export] // regular Dictionaries cannot be exported to the editor
-    public Godot.Collections.Dictionary<string, Attribute> Attributes { get; set; }
+    public Godot.Collections.Dictionary<StatName, Attribute> Attributes { get; set; }
 
     // Utility methods
-    public Attribute GetAttribute(string name) => Attributes[name];
-    public void SetAttribute(string name, Attribute attribute) => Attributes[name] = attribute;
-    public void SetAttributeValue(string name, float value) => Attributes[name].CurrentValue = value;
-    public void SetAttributeMaxValue(string name, float value) => Attributes[name].MaxValue = value;   
+    public Attribute GetAttribute(StatName name) => Attributes[name];
+    public void SetAttribute(StatName name, Attribute attribute) => Attributes[name] = attribute;
+    public void SetAttributeValue(StatName name, float value) => Attributes[name].CurrentValue = value;
+    public void SetAttributeMaxValue(StatName name, float value) => Attributes[name].MaxValue = value;  
+    public void SetAttributeMinValue(StatName name, float value) => Attributes[name].MinValue = value; 
 
     public Stats Clone()
     {
         var clone = new Stats
         {
-            Attributes = new Godot.Collections.Dictionary<string, Attribute>()
+            Attributes = new Godot.Collections.Dictionary<StatName, Attribute>()
         };
 
         foreach (var attribute in Attributes)

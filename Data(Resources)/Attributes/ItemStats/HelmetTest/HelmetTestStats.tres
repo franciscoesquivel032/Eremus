@@ -1,3 +1,10 @@
-[gd_resource type="Resource" format=3 uid="uid://dj1x347cx4o3b"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dj1x347cx4o3b"]
+
+[ext_resource type="Resource" uid="uid://c170k3df0xoh0" path="res://Data(Resources)/Attributes/ItemStats/HelmetTest/HelmetTestStrength.tres" id="1_qubti"]
+[ext_resource type="Script" path="res://Scripts/Attributes/Stats.cs" id="2_gb5xk"]
 
 [resource]
+script = ExtResource("2_gb5xk")
+Attributes = {
+"Strength": ExtResource("1_qubti")
+}

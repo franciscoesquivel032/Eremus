@@ -1,10 +1,12 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c5oxuio2swnef"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c5oxuio2swnef"]
 
 [ext_resource type="Script" path="res://Scripts/Inventory/InventoryResources/Equipable.cs" id="1_275y1"]
+[ext_resource type="Resource" uid="uid://dj1x347cx4o3b" path="res://Data(Resources)/Attributes/ItemStats/HelmetTest/HelmetTestStats.tres" id="1_a0vc5"]
 
 [resource]
 script = ExtResource("1_275y1")
 Slot = 0
+BonusStats = ExtResource("1_a0vc5")
 Id = "0002"
 Type = 2
 Name = "HelmetTest"

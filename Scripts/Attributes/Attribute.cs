@@ -2,18 +2,9 @@ using Godot;
 
 /// <summary>
 /// 
-///  ¡¡¡¡ Care with inheriting from Attribute if you intend to inherit from System.Attribute !!!
+///  ⚠ Care with inheriting from Attribute if you intend to inherit from System.Attribute !!!
 /// 
 ///  Attribute model resource
-///  
-/// Each attribute has a 
-/// name, 
-/// description, 
-/// current value, 
-/// max value, 
-/// min value 
-/// and icon
-/// 
 /// </summary>
 public partial class Attribute : Resource
 {
@@ -24,8 +15,26 @@ public partial class Attribute : Resource
     [Export(PropertyHint.MultilineText)]
     public string Description { get; set; }
 
+    // Encapsulate sensitive field to avoid invalid values
+    private float _currentValue;
     [Export]
-    public float CurrentValue { get; set; }
+    public float CurrentValue { 
+        get => _currentValue; 
+        set {
+            if (value > MaxValue)
+            {
+                _currentValue = MaxValue;
+            }
+            else if (value < MinValue)
+            {
+                _currentValue = MinValue;
+            }
+            else
+            {
+                _currentValue = value;
+            } 
+        }
+    }
 
     [Export]
     public float MaxValue { get; set; }

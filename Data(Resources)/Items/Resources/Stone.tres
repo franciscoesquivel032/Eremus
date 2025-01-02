@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://cm6b1rxq6uny"]
 
-[ext_resource type="Script" path="res://Scripts/Inventory/ItemData.cs" id="1_vao0c"]
+[ext_resource type="Script" path="res://Scripts/Inventory/InventoryResources/ItemData.cs" id="1_tkse1"]
 
 [resource]
-script = ExtResource("1_vao0c")
-Id = "00001"
+script = ExtResource("1_tkse1")
+Id = "0001"
 Type = 0
 Name = "Stone"
-Description = "Dwayne Johnson would be proud."
+Description = "Piedra"
 Weight = 20
