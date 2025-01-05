@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dg7dayi3vdabn"]
+
+[ext_resource type="Script" path="res://Scripts/Attributes/Attribute.cs" id="1_mamaw"]
+
+[resource]
+script = ExtResource("1_mamaw")
+StatName = 5
+Description = "Entity ranged damage"
+CurrentValue = 10.0
+hasMaxValue = false
+MaxValue = 0.0
+MinValue = 0.0

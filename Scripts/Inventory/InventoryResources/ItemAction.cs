@@ -6,6 +6,8 @@ using Godot;
 /// ItemActions are modifiable on runtime
 /// Same ItemAction can be asociated to different items
 /// </summary>
+[GlobalClass]
+[Tool]
 public abstract partial class ItemAction : Resource
 {
     public abstract void Execute(Node target);

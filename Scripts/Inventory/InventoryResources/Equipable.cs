@@ -1,5 +1,7 @@
 using Godot;
 
+[GlobalClass]
+[Tool]
 public partial class Equipable : ItemData
 {
     [Export]

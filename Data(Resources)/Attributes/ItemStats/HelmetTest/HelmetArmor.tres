@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://celg6f6lkkcx1"]
+
+[ext_resource type="Script" path="res://Scripts/Attributes/Attribute.cs" id="1_ywb8r"]
+
+[resource]
+script = ExtResource("1_ywb8r")
+StatName = "Health"
+Description = "Helmet test hp"
+CurrentValue = 50.0
+hasMaxValue = true
+MaxValue = 50.0
+MinValue = 50.0

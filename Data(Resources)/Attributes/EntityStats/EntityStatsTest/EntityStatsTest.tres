@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=10 format=3 uid="uid://dhc7wipoun7b1"]
+
+[ext_resource type="Script" path="res://Scripts/Attributes/Stats.cs" id="1_og156"]
+[ext_resource type="Resource" uid="uid://daaaho2xvnhjd" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/EntityHp.tres" id="1_p1d7g"]
+[ext_resource type="Resource" uid="uid://ckdf35pn1f4v4" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/EntityMana.tres" id="2_8c7qp"]
+[ext_resource type="Resource" uid="uid://mhgdoquybc8i" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/EntityStamina.tres" id="3_mgkwc"]
+[ext_resource type="Resource" uid="uid://cp1tb4b2yg6mt" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/EntityArmor.tres" id="4_u5o7t"]
+[ext_resource type="Resource" uid="uid://bn8d8g7p0gfnb" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/EntityMeleeDamage.tres" id="5_sbkfx"]
+[ext_resource type="Resource" uid="uid://dg7dayi3vdabn" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/EntityRangedDamage.tres" id="6_2v2yq"]
+[ext_resource type="Resource" uid="uid://v0t364atpnac" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/EntityMagicDamage.tres" id="7_2s205"]
+[ext_resource type="Resource" uid="uid://qswaocuffs2i" path="res://Data(Resources)/Attributes/EntityStats/EntityStatsTest/Entityspeed.tres" id="8_e6hjx"]
+
+[resource]
+script = ExtResource("1_og156")
+Attributes = Array[Resource]([ExtResource("1_p1d7g"), ExtResource("2_8c7qp"), ExtResource("3_mgkwc"), ExtResource("4_u5o7t"), ExtResource("5_sbkfx"), ExtResource("6_2v2yq"), ExtResource("7_2s205"), ExtResource("8_e6hjx")])

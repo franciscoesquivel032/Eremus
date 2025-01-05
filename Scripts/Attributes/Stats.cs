@@ -1,33 +1,56 @@
-using System.Collections.Generic;
+using System;
+using System.Linq;
+using System.Reflection;
 using Godot;
 
 /// <summary>
 /// 
 /// Stats resource model ~
+/// Stores an array of Attribute
 /// 
 /// </summary>
+
+[GlobalClass]
+[Tool]
 public partial class Stats : Resource
 {
-    [Export] // regular Dictionaries cannot be exported to the editor
-    public Godot.Collections.Dictionary<StatName, Attribute> Attributes { get; set; }
+    [Export] 
+    public Godot.Collections.Array<Attribute> Attributes { get; set; }
 
     // Utility methods
-    public Attribute GetAttribute(StatName name) => Attributes[name];
-    public void SetAttribute(StatName name, Attribute attribute) => Attributes[name] = attribute;
-    public void SetAttributeValue(StatName name, float value) => Attributes[name].CurrentValue = value;
-    public void SetAttributeMaxValue(StatName name, float value) => Attributes[name].MaxValue = value;  
-    public void SetAttributeMinValue(StatName name, float value) => Attributes[name].MinValue = value; 
+    public Attribute GetAttribute(StatName name) => Attributes.Where(a => a.Equals(name)).FirstOrDefault();
+    public void SetAttribute(StatName name, Attribute attribute)
+    {
+        var existingAttribute = GetAttribute(name);
+        if (existingAttribute != null)
+        {
+            Type t = typeof(Attribute);
+            FieldInfo[] fields = t.GetFields();
 
+            foreach (var field in fields)
+            {
+                existingAttribute.Set(field.Name, attribute.Get(field.Name));
+            }
+        }
+    }
+    public void SetAttributeValue(StatName name, float value)
+    {
+        var attribute = GetAttribute(name);
+        if (attribute != null)
+        {
+            attribute.CurrentValue = value;
+        }
+    }
     public Stats Clone()
     {
         var clone = new Stats
         {
-            Attributes = new Godot.Collections.Dictionary<StatName, Attribute>()
+            Attributes = new Godot.Collections.Array<Attribute>()
         };
 
         foreach (var attribute in Attributes)
         {
-            clone.Attributes.Add(attribute.Key, attribute.Value.Clone());
+            clone.Attributes.Add(attribute.Clone());
         }
 
         return clone;

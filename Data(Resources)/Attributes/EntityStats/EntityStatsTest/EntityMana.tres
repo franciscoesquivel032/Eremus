@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ckdf35pn1f4v4"]
+
+[ext_resource type="Script" path="res://Scripts/Attributes/Attribute.cs" id="1_xvh66"]
+
+[resource]
+script = ExtResource("1_xvh66")
+StatName = 1
+Description = "Entity mana"
+CurrentValue = 100.0
+hasMaxValue = true
+MaxValue = 100.0
+MinValue = 0.0

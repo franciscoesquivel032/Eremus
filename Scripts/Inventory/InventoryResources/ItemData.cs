@@ -5,6 +5,9 @@ using Godot;
 ///  Item data model resource
 /// 
 /// </summary>
+
+[GlobalClass]
+[Tool]
 public partial class ItemData : Resource
 {
     [Export]

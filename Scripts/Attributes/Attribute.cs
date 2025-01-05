@@ -6,11 +6,13 @@ using Godot;
 /// 
 ///  Attribute model resource
 /// </summary>
+[GlobalClass]
+[Tool]
 public partial class Attribute : Resource
 {
 
     [Export]
-    public string Name { get; set; }
+    public StatName StatName { get; set; }
 
     [Export(PropertyHint.MultilineText)]
     public string Description { get; set; }
@@ -20,21 +22,14 @@ public partial class Attribute : Resource
     [Export]
     public float CurrentValue { 
         get => _currentValue; 
-        set {
-            if (value > MaxValue)
-            {
-                _currentValue = MaxValue;
-            }
-            else if (value < MinValue)
-            {
-                _currentValue = MinValue;
-            }
-            else
-            {
-                _currentValue = value;
-            } 
+        set 
+        {
+            _currentValue = value; 
         }
     }
+
+    [Export]
+    public bool hasMaxValue { get; set; }
 
     [Export]
     public float MaxValue { get; set; }
@@ -55,9 +50,10 @@ public partial class Attribute : Resource
 
         var clone = new Attribute
         {
-            Name = this.Name,
+            StatName = this.StatName,
             Description = this.Description,
             CurrentValue = this.CurrentValue,
+            hasMaxValue = this.hasMaxValue,
             MaxValue = this.MaxValue,
             MinValue = this.MinValue,
             Icon = this.Icon

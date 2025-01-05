@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://qswaocuffs2i"]
+
+[ext_resource type="Script" path="res://Scripts/Attributes/Attribute.cs" id="1_k3ler"]
+
+[resource]
+script = ExtResource("1_k3ler")
+StatName = 7
+Description = "Entity health"
+CurrentValue = 100.0
+hasMaxValue = true
+MaxValue = 100.0
+MinValue = 0.0

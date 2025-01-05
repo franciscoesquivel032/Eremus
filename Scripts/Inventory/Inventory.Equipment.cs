@@ -9,8 +9,8 @@ using Godot;
 /// </summary>
 public partial class Inventory : Node
 {
-    private Dictionary<EquipmentSlot, ItemData> _equipment;
-    public Dictionary<EquipmentSlot, ItemData> Equipment => _equipment;
+    private Dictionary<EquipmentSlot, Equipable> _equipment;
+    public Dictionary<EquipmentSlot, Equipable> Equipment => _equipment;
 
     /// <summary>
     /// Temporary until we implement databases
@@ -19,10 +19,16 @@ public partial class Inventory : Node
     public override void _Ready()
     {
         base._Ready();
-        _equipment = new Dictionary<EquipmentSlot, ItemData>();
+        _equipment = new Dictionary<EquipmentSlot, Equipable>();
 
         EquipmentSlot[] slots = (EquipmentSlot[])System.Enum.GetValues(typeof(EquipmentSlot));
         slots.ForEach(slot => _equipment.Add(slot, null));
+
+        GD.Print("Loading item...");
+        Equipable item = GD.Load<Equipable>("res://Data(Resources)/Items/Equipables/HelmetTest.tres");
+        GD.Print("Item loaded... Starting to equip...");
+        EquipItem(item);
+        GD.Print("Item equipped...");
     }
 
 
@@ -37,11 +43,17 @@ public partial class Inventory : Node
     /// <exception cref="System.ArgumentNullException"></exception>
     public void EquipItem(Equipable item)
     {
+        GD.Print("~~Equipping item...");
         if(item != null)
         {
             if(item.Type == ItemType.Equipable)
             {
+                if(_equipment[item.Slot] != null)
+                {
+                    removeCurrentStats(item.Slot);
+                }
                 _equipment[item.Slot] = item;
+                addNewStats(item);
             }
             else
             {
@@ -52,7 +64,43 @@ public partial class Inventory : Node
         {
             throw new System.ArgumentNullException("Item cannot be null...");
         }
+        GD.Print("~~Item equipped...");
+    }
 
+    private void removeCurrentStats(EquipmentSlot slot)
+    {
+        GD.Print("--Removing stats from current...");
+
+        if (_equipment[slot] != null)
+        {
+            var entityAttributes = GetParent().GetNode<EntityAttributes>("EntityAttributes");
+            if (entityAttributes != null)
+            {
+                entityAttributes.RemoveStatsFromCurrent(_equipment[slot].BonusStats);
+            }
+            else
+            {
+                GD.PrintErr("EntityAttributes node not found");
+            }
+        }
+
+        GD.Print("--Stats removed from current...");
+    }
+
+    private void addNewStats(Equipable item)
+    {
+
+        GD.Print("++Adding new stats...");
+        var entityAttributes = GetParent().GetNode<EntityAttributes>("EntityAttributes");
+        if (entityAttributes != null)
+        {
+            entityAttributes.AddStatsToCurrent(item.BonusStats);
+        }
+        else
+        {
+            GD.PrintErr("EntityAttributes node not found");
+        }
+        GD.Print("++New stats added...");
     }
     
     //TODO Stats calcs

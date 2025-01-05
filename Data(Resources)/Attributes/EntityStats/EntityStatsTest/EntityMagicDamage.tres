@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://v0t364atpnac"]
+
+[ext_resource type="Script" path="res://Scripts/Attributes/Attribute.cs" id="1_ojhvl"]
+
+[resource]
+script = ExtResource("1_ojhvl")
+StatName = 6
+Description = "Entity movement speed"
+CurrentValue = 50.0
+hasMaxValue = false
+MaxValue = 0.0
+MinValue = 0.0

@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dj1x347cx4o3b"]
+[gd_resource type="Resource" script_class="Stats" load_steps=5 format=3 uid="uid://dj1x347cx4o3b"]
 
-[ext_resource type="Resource" uid="uid://c170k3df0xoh0" path="res://Data(Resources)/Attributes/ItemStats/HelmetTest/HelmetTestStrength.tres" id="1_qubti"]
+[ext_resource type="Resource" uid="uid://cqj80mphfdmww" path="res://Data(Resources)/Attributes/ItemStats/HelmetTest/HelmetHp.tres" id="1_u5ult"]
+[ext_resource type="Resource" uid="uid://dwlxhx0lt4j5q" path="res://Data(Resources)/Attributes/ItemStats/HelmetTest/HelmetStamina.tres" id="2_01def"]
 [ext_resource type="Script" path="res://Scripts/Attributes/Stats.cs" id="2_gb5xk"]
+[ext_resource type="Resource" uid="uid://celg6f6lkkcx1" path="res://Data(Resources)/Attributes/ItemStats/HelmetTest/HelmetArmor.tres" id="3_je5aa"]
 
 [resource]
 script = ExtResource("2_gb5xk")
-Attributes = {
-"Strength": ExtResource("1_qubti")
-}
+Attributes = Array[Resource]([ExtResource("1_u5ult"), ExtResource("2_01def"), ExtResource("3_je5aa")])
