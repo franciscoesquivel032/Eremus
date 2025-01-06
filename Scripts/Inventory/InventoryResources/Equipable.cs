@@ -1,10 +1,37 @@
 using Godot;
 
+[GlobalClass]
 public partial class Equipable : ItemData
 {
-    [Export]
+    /// <summary>
+    /// Equipment slot
+    /// </summary>
+    [Export] 
     public EquipmentSlot Slot { get; set; }
     
+    /// <summary>
+    /// Bonus stats
+    /// </summary>
     [Export]
-    public Stats BonusStats { get; set; }
+    public EntityStats BonusStats { get; set; }
+
+    /// <summary>
+    /// Default constructor
+    /// </summary>
+    public Equipable()
+    {
+        Slot = EquipmentSlot.Head;
+        BonusStats = new EntityStats();
+    }
+
+    /// <summary>
+    /// Constructor with parameters
+    /// </summary>
+    /// <param name="equipable"></param>
+    public Equipable(Equipable equipable)
+    {
+        Slot = equipable.Slot;
+        BonusStats = new EntityStats(equipable.BonusStats);
+    }
+
 }

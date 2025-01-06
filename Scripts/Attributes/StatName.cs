@@ -6,13 +6,15 @@
 /// </summary>
 public enum StatName
 {
-    Health,
+    MaxHealth,
     Mana,
-    Stamina,
     Armor,
-    MeleeDamage,
-    RangeDamage,
+    PhysicalDamage,
     MagicDamage,
-    Speed,
-    Luck
+    AttackSpeed,
+    MovementSpeed,
+    AttackRange,
+    Strength,
+    Dexterity,
+    Intelligence
 }

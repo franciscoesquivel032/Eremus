@@ -21,18 +21,7 @@ public partial class Attribute : Resource
     public float CurrentValue { 
         get => _currentValue; 
         set {
-            if (value > MaxValue)
-            {
-                _currentValue = MaxValue;
-            }
-            else if (value < MinValue)
-            {
-                _currentValue = MinValue;
-            }
-            else
-            {
-                _currentValue = value;
-            } 
+            _currentValue = value;
         }
     }
 
