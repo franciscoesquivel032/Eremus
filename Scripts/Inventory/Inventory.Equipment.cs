@@ -9,26 +9,35 @@ using Godot;
 /// </summary>
 public partial class Inventory : Node
 {
-    private Dictionary<EquipmentSlot, ItemData> _equipment;
-    public Dictionary<EquipmentSlot, ItemData> Equipment => _equipment;
+    private Dictionary<EquipmentSlot, Equipable> _equipment;
+    public Dictionary<EquipmentSlot, Equipable> Equipment => _equipment;
+
+    private EntityStatsHandler entityStats;
 
     /// <summary>
     /// Temporary until we implement databases
     /// New Dictionary which stores each EquipmentSlot and null (for now)
     /// </summary>
-    public override void _Ready()
+    private void InitEquipment()
     {
+        Prints.Loading("Initializing equipment...");
+
         base._Ready();
-        _equipment = new Dictionary<EquipmentSlot, ItemData>();
+
+        _equipment = new Dictionary<EquipmentSlot, Equipable>();
 
         EquipmentSlot[] slots = (EquipmentSlot[])System.Enum.GetValues(typeof(EquipmentSlot));
         slots.ForEach(slot => _equipment.Add(slot, null));
+        
+        entityStats = GetNode<EntityStatsHandler>("../EntityStats");
+        Prints.Loaded("Equipment initialized.");
     }
 
 
     //TODO Stats calcs
     /// <summary>
     /// Equip an item to a slot
+    /// if the slot does not exist throw an exception
     /// if the item is null throw an exception
     /// if the item is not equipable throw an exception
     /// </summary>
@@ -41,7 +50,11 @@ public partial class Inventory : Node
         {
             if(item.Type == ItemType.Equipable)
             {
+                if(!IsSlotFree(item.Slot))
+                    entityStats.RemoveStats(_equipment[item.Slot]);
+
                 _equipment[item.Slot] = item;
+                entityStats.AddStats(item);
             }
             else
             {
@@ -54,6 +67,14 @@ public partial class Inventory : Node
         }
 
     }
+
+    /// <summary>
+    /// Check if a given slot is free
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <returns></returns>
+    private bool IsSlotFree(EquipmentSlot slot) => _equipment[slot] == null;
+
     
     //TODO Stats calcs
     /// <summary>
@@ -66,6 +87,10 @@ public partial class Inventory : Node
     {
         if(_equipment.ContainsKey(slot))
         {
+            
+            if(!IsSlotFree(slot))
+                entityStats.RemoveStats(_equipment[slot]);
+            
             _equipment[slot] = null;
         }
         else

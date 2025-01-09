@@ -18,6 +18,18 @@ public partial class Inventory : Node
 
     private Dictionary<ItemData, int> _items;
     public Dictionary<ItemData, int> Items => _items;
+
+    public override void _Ready()
+    {
+        Prints.Loading("Initializing inventory items...");
+        
+        base._Ready();
+        _items = new Dictionary<ItemData, int>();
+
+        Prints.Loaded("Inventory items initialized.");
+
+        InitEquipment();
+    }
    
    /// <summary>
    /// Adds an item with a given quantity to the dictionary of items

@@ -7,7 +7,7 @@ using Godot;
 /// </summary>
 
 [GlobalClass]
-public partial class EntityStats : Resource
+public partial class StatsResource : Resource
 {
     [Export] public float MaxHealth { get; set; }
     [Export] public float Mana { get; set; }
@@ -24,7 +24,7 @@ public partial class EntityStats : Resource
     /// <summary>
     /// Default constructor
     /// </summary>
-    public EntityStats()
+    public StatsResource()
     {
         MaxHealth = 100;
         Mana = 100;
@@ -43,7 +43,7 @@ public partial class EntityStats : Resource
     /// Constructor with parameters
     /// </summary>
     /// <param name="stats"></param>
-    public EntityStats(EntityStats stats)
+    public StatsResource(StatsResource stats)
     {
         MaxHealth = stats.MaxHealth;
         Mana = stats.Mana;
@@ -62,9 +62,9 @@ public partial class EntityStats : Resource
     /// Clone method
     /// </summary>
     /// <returns></returns>
-    public EntityStats Clone()
+    public StatsResource Clone()
     {
-        return new EntityStats(this);
+        return new StatsResource(this);
     }
 
     /// <summary>
@@ -72,9 +72,9 @@ public partial class EntityStats : Resource
     /// </summary>
     /// <param name="path"></param>
     /// <exception cref="ArgumentException"></exception>
-    public EntityStats(string path)
+    public StatsResource(string path)
     {
-        var loadedStats = (EntityStats)ResourceLoader.Load(path);
+        var loadedStats = (StatsResource)ResourceLoader.Load(path);
         if(loadedStats != null)
         {
             CopyFrom(loadedStats);
@@ -89,7 +89,7 @@ public partial class EntityStats : Resource
     /// Copy stats from another instance
     /// </summary>
     /// <param name="stats"></param>
-    public void CopyFrom(EntityStats stats)
+    public void CopyFrom(StatsResource stats)
     {
         MaxHealth = stats.MaxHealth;
         Mana = stats.Mana;

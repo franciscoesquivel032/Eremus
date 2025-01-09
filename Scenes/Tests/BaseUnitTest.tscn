@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3p2yjl6pee55"]
+[gd_scene load_steps=9 format=3 uid="uid://c3p2yjl6pee55"]
 
 [ext_resource type="Script" path="res://Scripts/Units/BaseUnit.cs" id="1_5hq3g"]
 [ext_resource type="Script" path="res://Scripts/Units/Selection/Selectable.cs" id="2_tj7go"]
 [ext_resource type="Script" path="res://Scripts/Inventory/Inventory.cs" id="4_740wy"]
 [ext_resource type="Resource" uid="uid://bmb4kom5hj8nb" path="res://Data(Resources)/Items/InventorySizes/DefaultInventorySize.tres" id="5_6o8cu"]
 [ext_resource type="Script" path="res://Scripts/Units/Movement/MovementHandler.cs" id="5_mvkis"]
+[ext_resource type="Script" path="res://Scripts/Stats/EntityStatsHandler.cs" id="6_gffmh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_is8vq"]
 
@@ -34,3 +35,6 @@ script = ExtResource("5_mvkis")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MovementHandler"]
 shape = SubResource("BoxShape3D_6xfhn")
+
+[node name="EntityStats" type="Node3D" parent="."]
+script = ExtResource("6_gffmh")

@@ -1,3 +1,17 @@
-[gd_resource type="Resource" format=3 uid="uid://btx28qtf2ylct"]
+[gd_resource type="Resource" script_class="StatsResource" load_steps=2 format=3 uid="uid://btx28qtf2ylct"]
+
+[ext_resource type="Script" path="res://Scripts/Stats/StatsResource.cs" id="1_rnylm"]
 
 [resource]
+script = ExtResource("1_rnylm")
+MaxHealth = 50.0
+Mana = 0.0
+Armor = 120.0
+PhysicalDamage = 0.0
+MagicDamage = 0.0
+MovementSpeed = 0.0
+AttackSpeed = 0.0
+AttackRange = 0.0
+Strength = 10.0
+Dexterity = 0.0
+Intelligence = 0.0

@@ -1,4 +1,6 @@
+using System;
 using Godot;
+
 
 // TODO: Implement EquipAction
 public partial class EquipAction : ItemAction

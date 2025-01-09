@@ -13,7 +13,7 @@ public partial class Equipable : ItemData
     /// Bonus stats
     /// </summary>
     [Export]
-    public EntityStats BonusStats { get; set; }
+    public StatsResource BonusStats { get; set; }
 
     /// <summary>
     /// Default constructor
@@ -21,7 +21,7 @@ public partial class Equipable : ItemData
     public Equipable()
     {
         Slot = EquipmentSlot.Head;
-        BonusStats = new EntityStats();
+        BonusStats = new StatsResource();
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public partial class Equipable : ItemData
     public Equipable(Equipable equipable)
     {
         Slot = equipable.Slot;
-        BonusStats = new EntityStats(equipable.BonusStats);
+        BonusStats = new StatsResource(equipable.BonusStats);
     }
 
 }
